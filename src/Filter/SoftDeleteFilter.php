@@ -1,8 +1,8 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Filter;
+namespace mdeboer\DoctrineBehaviour\Filter;
 
-use Cloudstek\DoctrineBehaviour\SoftDeletableInterface;
+use mdeboer\DoctrineBehaviour\SoftDeletableInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Filter\SQLFilter;
 

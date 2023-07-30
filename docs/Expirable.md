@@ -1,8 +1,8 @@
 # Expirable Behaviour
 
-1. Create your entity class implementing `Cloudstek\DoctrineBehaviour\ExpirableInterface`.
-2. Use the `Cloudstek\DoctrineBehaviour\ExpirableTrait` trait.
-3. Optionally set up the `Cloudstek\DoctrineBehaviour\Filter\ExpirableFilter` filter (please see
+1. Create your entity class implementing `mdeboer\DoctrineBehaviour\ExpirableInterface`.
+2. Use the `mdeboer\DoctrineBehaviour\ExpirableTrait` trait.
+3. Optionally set up the `mdeboer\DoctrineBehaviour\Filter\ExpirableFilter` filter (please see
    the [Doctrine documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/2.11/reference/filters.html)
    on filters).
 
@@ -14,8 +14,8 @@
 
 namespace App\Entity;
 
-use Cloudstek\DoctrineBehaviour\ExpirableInterface;
-use Cloudstek\DoctrineBehaviour\ExpirableTrait;
+use mdeboer\DoctrineBehaviour\ExpirableInterface;
+use mdeboer\DoctrineBehaviour\ExpirableTrait;
 
 class MyExpirableEntity implements ExpirableInterface
 {

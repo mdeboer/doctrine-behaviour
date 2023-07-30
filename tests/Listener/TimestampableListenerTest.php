@@ -1,13 +1,13 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests\Listener;
+namespace mdeboer\DoctrineBehaviour\Tests\Listener;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use Cloudstek\DoctrineBehaviour\Listener\TimestampableListener;
-use Cloudstek\DoctrineBehaviour\Tests\Assertions\DateAssertions;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\Timestampable\TimestampableEntity;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\Timestampable\TimestampableEntityWithoutInterfaces;
+use mdeboer\DoctrineBehaviour\Listener\TimestampableListener;
+use mdeboer\DoctrineBehaviour\Tests\Assertions\DateAssertions;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\Timestampable\TimestampableEntity;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\Timestampable\TimestampableEntityWithoutInterfaces;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PrePersistEventArgs;
@@ -16,8 +16,8 @@ use Doctrine\Persistence\ObjectManager;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Cloudstek\DoctrineBehaviour\TimestampableTrait
- * @covers \Cloudstek\DoctrineBehaviour\Listener\TimestampableListener
+ * @covers \mdeboer\DoctrineBehaviour\TimestampableTrait
+ * @covers \mdeboer\DoctrineBehaviour\Listener\TimestampableListener
  */
 class TimestampableListenerTest extends TestCase
 {

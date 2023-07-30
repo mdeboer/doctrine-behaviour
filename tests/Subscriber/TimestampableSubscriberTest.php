@@ -1,17 +1,17 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests\Subscriber;
+namespace mdeboer\DoctrineBehaviour\Tests\Subscriber;
 
-use Cloudstek\DoctrineBehaviour\Listener\TimestampableListener;
-use Cloudstek\DoctrineBehaviour\Subscriber\TimestampableSubscriber;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\ExpirableEntity;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\Timestampable\TimestampableEntity;
+use mdeboer\DoctrineBehaviour\Listener\TimestampableListener;
+use mdeboer\DoctrineBehaviour\Subscriber\TimestampableSubscriber;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\ExpirableEntity;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\Timestampable\TimestampableEntity;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
 
 /**
- * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TimestampableSubscriber
+ * @covers \mdeboer\DoctrineBehaviour\Subscriber\TimestampableSubscriber
  */
 class TimestampableSubscriberTest extends AbstractSubscriberTestCase
 {
@@ -21,7 +21,7 @@ class TimestampableSubscriberTest extends AbstractSubscriberTestCase
     }
 
     /**
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TimestampableSubscriber::getSubscribedEvents
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TimestampableSubscriber::getSubscribedEvents
      */
     public function testSubscribedEvents(): void
     {
@@ -67,7 +67,7 @@ class TimestampableSubscriberTest extends AbstractSubscriberTestCase
     }
 
     /**
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TimestampableSubscriber::loadClassMetadata
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TimestampableSubscriber::loadClassMetadata
      */
     public function testLoadClassMetadataSkipsIfListenerIsAlreadySet(): void
     {
@@ -113,7 +113,7 @@ class TimestampableSubscriberTest extends AbstractSubscriberTestCase
     }
 
     /**
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TimestampableSubscriber::loadClassMetadata
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TimestampableSubscriber::loadClassMetadata
      */
     public function testLoadClassMetadataOfNonTimestampableEntity(): void
     {

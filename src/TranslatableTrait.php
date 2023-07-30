@@ -1,8 +1,8 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour;
+namespace mdeboer\DoctrineBehaviour;
 
-use Cloudstek\DoctrineBehaviour\Exception\TranslationNotFoundException;
+use mdeboer\DoctrineBehaviour\Exception\TranslationNotFoundException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 

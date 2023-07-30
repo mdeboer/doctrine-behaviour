@@ -1,9 +1,9 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Listener;
+namespace mdeboer\DoctrineBehaviour\Listener;
 
 use Carbon\CarbonImmutable;
-use Cloudstek\DoctrineBehaviour\TimestampableInterface;
+use mdeboer\DoctrineBehaviour\TimestampableInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 

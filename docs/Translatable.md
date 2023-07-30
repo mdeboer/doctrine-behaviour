@@ -1,11 +1,11 @@
 # Translatable Behaviour
 
-1. Create your entity class implementing `Cloudstek\DoctrineBehaviour\TranslatableInterface`.
-2. Create your translation class implementing `Cloudstek\DoctrineBehaviour\TranslationInterface`.
-3. Use the `Cloudstek\DoctrineBehaviour\TranslatableTrait` trait on the translatable entity.
-4. Use the `Cloudstek\DoctrineBehaviour\TranslationTrait` trait on the translation entity.
+1. Create your entity class implementing `mdeboer\DoctrineBehaviour\TranslatableInterface`.
+2. Create your translation class implementing `mdeboer\DoctrineBehaviour\TranslationInterface`.
+3. Use the `mdeboer\DoctrineBehaviour\TranslatableTrait` trait on the translatable entity.
+4. Use the `mdeboer\DoctrineBehaviour\TranslationTrait` trait on the translation entity.
 5. Either add the required mappings to each translatable and translation entity yourself or register
-   the `Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber` Symfony event
+   the `mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber` Symfony event
    subscriber to automatically apply the required mappings to all translatable and translation entities (preferred).
 
 ## Example
@@ -16,8 +16,8 @@
 
 namespace App\Entity;
 
-use Cloudstek\DoctrineBehaviour\TranslatableInterface;
-use Cloudstek\DoctrineBehaviour\TranslatableTrait;
+use mdeboer\DoctrineBehaviour\TranslatableInterface;
+use mdeboer\DoctrineBehaviour\TranslatableTrait;
 
 class MyTranslatableEntity implements TranslatableInterface
 {
@@ -52,8 +52,8 @@ class MyTranslatableEntity implements TranslatableInterface
 
 namespace App\Entity;
 
-use Cloudstek\DoctrineBehaviour\TranslationInterface;
-use Cloudstek\DoctrineBehaviour\TranslationTrait;
+use mdeboer\DoctrineBehaviour\TranslationInterface;
+use mdeboer\DoctrineBehaviour\TranslationTrait;
 
 class MyTranslatableEntityTranslation implements TranslationInterface
 {

@@ -1,22 +1,22 @@
 {
-    "name": "cloudstek/doctrine-behaviour",
+    "name": "mdeboer/doctrine-behaviour",
     "description": "Library of different entity behaviours (timestampable etc.)",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Cloudstek\\DoctrineBehaviour\\": "src/"
+            "mdeboer\\DoctrineBehaviour\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Cloudstek\\DoctrineBehaviour\\Tests\\": "tests/"
+            "mdeboer\\DoctrineBehaviour\\Tests\\": "tests/"
         }
     },
     "authors": [
         {
             "name": "Maarten de Boer",
-            "email": "maarten@cloudstek.nl"
+            "email": "info@maartendeboer.net"
         }
     ],
     "require": {

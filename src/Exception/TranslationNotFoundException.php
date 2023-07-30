@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cloudstek\DoctrineBehaviour\Exception;
+namespace mdeboer\DoctrineBehaviour\Exception;
 
 /**
  * Translation not found exception.

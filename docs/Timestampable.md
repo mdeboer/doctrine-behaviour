@@ -1,9 +1,9 @@
 # Timestampable Behaviour
 
-1. Create your entity class implementing `Cloudstek\DoctrineBehaviour\TimestampableInterface`.
-2. Use the `Cloudstek\DoctrineBehaviour\TimestampableTrait` trait.
-3. Either add the `Cloudstek\DoctrineBehaviour\Listener\TimestampableListener` entity listener to each timestampable
-   entity yourself. Or register the `Cloudstek\DoctrineBehaviour\Subscriber\TimestampableSubscriber` Symfony event
+1. Create your entity class implementing `mdeboer\DoctrineBehaviour\TimestampableInterface`.
+2. Use the `mdeboer\DoctrineBehaviour\TimestampableTrait` trait.
+3. Either add the `mdeboer\DoctrineBehaviour\Listener\TimestampableListener` entity listener to each timestampable
+   entity yourself. Or register the `mdeboer\DoctrineBehaviour\Subscriber\TimestampableSubscriber` Symfony event
    subscriber to automatically apply the listener to each timestampable entity (preferred).
 
 ## Example
@@ -14,8 +14,8 @@
 
 namespace App\Entity;
 
-use Cloudstek\DoctrineBehaviour\TimestampableInterface;
-use Cloudstek\DoctrineBehaviour\TimestampableTrait;
+use mdeboer\DoctrineBehaviour\TimestampableInterface;
+use mdeboer\DoctrineBehaviour\TimestampableTrait;
 
 class MyTimestampableEntity implements TimestampableInterface
 {

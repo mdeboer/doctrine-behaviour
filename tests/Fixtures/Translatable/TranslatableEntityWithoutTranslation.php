@@ -1,10 +1,10 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests\Fixtures\Translatable;
+namespace mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable;
 
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\AbstractEntity;
-use Cloudstek\DoctrineBehaviour\TranslatableInterface;
-use Cloudstek\DoctrineBehaviour\TranslatableTrait;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\AbstractEntity;
+use mdeboer\DoctrineBehaviour\TranslatableInterface;
+use mdeboer\DoctrineBehaviour\TranslatableTrait;
 use Doctrine\ORM\Mapping\Entity;
 
 #[Entity]

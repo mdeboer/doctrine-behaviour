@@ -1,8 +1,8 @@
 # Soft-deletable Behaviour
 
-1. Create your entity class implementing `Cloudstek\DoctrineBehaviour\SoftDeletableInterface`.
-2. Use the `Cloudstek\DoctrineBehaviour\SoftDeletableTrait` trait.
-3. Optionally set up the `Cloudstek\DoctrineBehaviour\Filter\SoftDeleteFilter` filter (please see
+1. Create your entity class implementing `mdeboer\DoctrineBehaviour\SoftDeletableInterface`.
+2. Use the `mdeboer\DoctrineBehaviour\SoftDeletableTrait` trait.
+3. Optionally set up the `mdeboer\DoctrineBehaviour\Filter\SoftDeleteFilter` filter (please see
    the [Doctrine documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/2.11/reference/filters.html)
    on filters).
 
@@ -14,8 +14,8 @@
 
 namespace App\Entity;
 
-use Cloudstek\DoctrineBehaviour\SoftDeletableInterface;
-use Cloudstek\DoctrineBehaviour\SoftDeletableTrait;
+use mdeboer\DoctrineBehaviour\SoftDeletableInterface;
+use mdeboer\DoctrineBehaviour\SoftDeletableTrait;
 
 class MySoftDeletableEntity implements SoftDeletableInterface
 {

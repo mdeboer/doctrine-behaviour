@@ -1,9 +1,9 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests\Fixtures;
+namespace mdeboer\DoctrineBehaviour\Tests\Fixtures;
 
-use Cloudstek\DoctrineBehaviour\ExpirableInterface;
-use Cloudstek\DoctrineBehaviour\ExpirableTrait;
+use mdeboer\DoctrineBehaviour\ExpirableInterface;
+use mdeboer\DoctrineBehaviour\ExpirableTrait;
 use Doctrine\ORM\Mapping\Entity;
 
 #[Entity]

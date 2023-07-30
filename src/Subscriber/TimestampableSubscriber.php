@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cloudstek\DoctrineBehaviour\Subscriber;
+namespace mdeboer\DoctrineBehaviour\Subscriber;
 
-use Cloudstek\DoctrineBehaviour\Listener\TimestampableListener;
-use Cloudstek\DoctrineBehaviour\TimestampableInterface;
+use mdeboer\DoctrineBehaviour\Listener\TimestampableListener;
+use mdeboer\DoctrineBehaviour\TimestampableInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;

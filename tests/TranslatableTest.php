@@ -1,14 +1,14 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests;
+namespace mdeboer\DoctrineBehaviour\Tests;
 
-use Cloudstek\DoctrineBehaviour\Exception\TranslationNotFoundException;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\Translatable\OtherEntityTranslation;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntity;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntityTranslation;
-use Cloudstek\DoctrineBehaviour\TranslatableTrait;
-use Cloudstek\DoctrineBehaviour\TranslationInterface;
-use Cloudstek\DoctrineBehaviour\TranslationTrait;
+use mdeboer\DoctrineBehaviour\Exception\TranslationNotFoundException;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\OtherEntityTranslation;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntity;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntityTranslation;
+use mdeboer\DoctrineBehaviour\TranslatableTrait;
+use mdeboer\DoctrineBehaviour\TranslationInterface;
+use mdeboer\DoctrineBehaviour\TranslationTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\Attributes\CoversClass;

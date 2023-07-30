@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cloudstek\DoctrineBehaviour;
+namespace mdeboer\DoctrineBehaviour;
 
-use Cloudstek\DoctrineBehaviour\Exception\TranslationNotFoundException;
+use mdeboer\DoctrineBehaviour\Exception\TranslationNotFoundException;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
 

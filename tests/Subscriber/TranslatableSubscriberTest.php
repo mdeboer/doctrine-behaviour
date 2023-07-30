@@ -1,13 +1,13 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests\Subscriber;
+namespace mdeboer\DoctrineBehaviour\Tests\Subscriber;
 
-use Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\Translatable\OtherEntityTranslation;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntity;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntityTranslation;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntityWithoutTranslation;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslationEntity;
+use mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\OtherEntityTranslation;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntity;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntityTranslation;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntityWithoutTranslation;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslationEntity;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 
 /**
- * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber
+ * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber
  */
 class TranslatableSubscriberTest extends AbstractSubscriberTestCase
 {
@@ -25,7 +25,7 @@ class TranslatableSubscriberTest extends AbstractSubscriberTestCase
     }
 
     /**
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber::getSubscribedEvents()
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::getSubscribedEvents()
      */
     public function testSubscribedEvents(): void
     {
@@ -38,8 +38,8 @@ class TranslatableSubscriberTest extends AbstractSubscriberTestCase
     }
 
     /**
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslatable()
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslatable()
      */
     public function testLoadClassMetadataForTranslatable(): void
     {
@@ -85,8 +85,8 @@ class TranslatableSubscriberTest extends AbstractSubscriberTestCase
     }
 
     /**
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslatable()
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslatable()
      */
     public function testLoadClassMetadataForTranslatableWithoutTranslationClass(): void
     {
@@ -108,8 +108,8 @@ class TranslatableSubscriberTest extends AbstractSubscriberTestCase
     }
 
     /**
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslation()
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslation()
      */
     public function testLoadClassMetadataForTranslation(): void
     {
@@ -201,8 +201,8 @@ class TranslatableSubscriberTest extends AbstractSubscriberTestCase
     }
 
     /**
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslation()
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslation()
      */
     public function testLoadClassMetadataForTranslationWithoutTranslatableClass(): void
     {
@@ -226,8 +226,8 @@ class TranslatableSubscriberTest extends AbstractSubscriberTestCase
     }
 
     /**
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
-     * @covers \Cloudstek\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslation()
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
+     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslation()
      */
     public function testLoadClassMetadataForTranslationWithWrongName(): void
     {
