@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cloudstek\DoctrineBehaviour;
+namespace mdeboer\DoctrineBehaviour;
 
 use Doctrine\ORM\Mapping as ORM;
 

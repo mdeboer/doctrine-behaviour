@@ -1,9 +1,9 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests\Fixtures\Timestampable;
+namespace mdeboer\DoctrineBehaviour\Tests\Fixtures\Timestampable;
 
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\AbstractEntity;
-use Cloudstek\DoctrineBehaviour\TimestampableTrait;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\AbstractEntity;
+use mdeboer\DoctrineBehaviour\TimestampableTrait;
 use Doctrine\ORM\Mapping\Entity;
 
 #[Entity]

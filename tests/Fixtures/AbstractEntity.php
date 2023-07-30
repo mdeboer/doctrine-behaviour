@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests\Fixtures;
+namespace mdeboer\DoctrineBehaviour\Tests\Fixtures;
 
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;

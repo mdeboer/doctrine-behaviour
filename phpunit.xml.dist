@@ -6,6 +6,9 @@
          executionOrder="depends,defects"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
+         beStrictAboutChangesToGlobalState="true"
+         beStrictAboutCoverageMetadata="true"
+         requireCoverageMetadata="true"
          failOnRisky="true"
          failOnWarning="true">
     <testsuites>

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cloudstek\DoctrineBehaviour\Subscriber;
+namespace mdeboer\DoctrineBehaviour\Subscriber;
 
-use Cloudstek\DoctrineBehaviour\TranslatableInterface;
-use Cloudstek\DoctrineBehaviour\TranslationInterface;
+use mdeboer\DoctrineBehaviour\TranslatableInterface;
+use mdeboer\DoctrineBehaviour\TranslationInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Util\ClassUtils as DoctrineClassUtils;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;

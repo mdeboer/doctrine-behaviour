@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests\Subscriber;
+namespace mdeboer\DoctrineBehaviour\Tests\Subscriber;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;

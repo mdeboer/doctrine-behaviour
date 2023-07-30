@@ -1,12 +1,12 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests;
+namespace mdeboer\DoctrineBehaviour\Tests;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use Cloudstek\DoctrineBehaviour\ExpirableTrait;
-use Cloudstek\DoctrineBehaviour\Tests\Assertions\DateAssertions;
-use Cloudstek\DoctrineBehaviour\Tests\Fixtures\ExpirableEntity;
+use mdeboer\DoctrineBehaviour\ExpirableTrait;
+use mdeboer\DoctrineBehaviour\Tests\Assertions\DateAssertions;
+use mdeboer\DoctrineBehaviour\Tests\Fixtures\ExpirableEntity;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

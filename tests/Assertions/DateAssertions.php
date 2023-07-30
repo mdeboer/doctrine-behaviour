@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests\Assertions;
+namespace mdeboer\DoctrineBehaviour\Tests\Assertions;
 
 use Carbon\CarbonImmutable;
 

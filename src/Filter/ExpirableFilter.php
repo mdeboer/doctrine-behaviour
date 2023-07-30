@@ -1,9 +1,9 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Filter;
+namespace mdeboer\DoctrineBehaviour\Filter;
 
 use Carbon\CarbonImmutable;
-use Cloudstek\DoctrineBehaviour\ExpirableInterface;
+use mdeboer\DoctrineBehaviour\ExpirableInterface;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Filter\SQLFilter;

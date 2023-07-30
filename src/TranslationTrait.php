@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour;
+namespace mdeboer\DoctrineBehaviour;
 
 /**
  * Translation trait.

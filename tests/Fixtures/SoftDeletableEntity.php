@@ -1,9 +1,9 @@
 <?php
 
-namespace Cloudstek\DoctrineBehaviour\Tests\Fixtures;
+namespace mdeboer\DoctrineBehaviour\Tests\Fixtures;
 
-use Cloudstek\DoctrineBehaviour\SoftDeletableInterface;
-use Cloudstek\DoctrineBehaviour\SoftDeletableTrait;
+use mdeboer\DoctrineBehaviour\SoftDeletableInterface;
+use mdeboer\DoctrineBehaviour\SoftDeletableTrait;
 use Doctrine\ORM\Mapping\Entity;
 
 #[Entity]
