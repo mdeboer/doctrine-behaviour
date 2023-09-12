@@ -3,10 +3,10 @@
 namespace mdeboer\DoctrineBehaviour\Filter;
 
 use Carbon\CarbonImmutable;
-use mdeboer\DoctrineBehaviour\ExpirableInterface;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Filter\SQLFilter;
+use mdeboer\DoctrineBehaviour\ExpirableInterface;
 
 /**
  * Expirable SQL filter.
@@ -26,7 +26,7 @@ class ExpirableFilter extends SQLFilter
         $platform = $connection->getDatabasePlatform();
 
         // Get quoted column name
-        $column = $targetTableAlias . '.expires_at';
+        $column = sprintf('%s.%s', $targetTableAlias, $targetEntity->getColumnName('expiresAt'));
 
         // Return constraint where deletedAt is NULL or in the future
         return sprintf(

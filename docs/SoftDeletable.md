@@ -1,10 +1,47 @@
 # Soft-deletable Behaviour
 
+## Usage
+
 1. Create your entity class implementing `mdeboer\DoctrineBehaviour\SoftDeletableInterface`.
 2. Use the `mdeboer\DoctrineBehaviour\SoftDeletableTrait` trait.
-3. Optionally set up the `mdeboer\DoctrineBehaviour\Filter\SoftDeleteFilter` filter (please see
-   the [Doctrine documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/2.11/reference/filters.html)
-   on filters).
+
+### Registering the filter
+
+#### Symfony
+
+1. Configure the `expirable` filter in your Doctrine config:
+
+```yaml
+doctrine:
+    orm:
+        filters:
+            softdelete:
+                class: 'mdeboer\DoctrineBehaviour\Filter\SoftDeleteFilter'
+                enabled: true
+```
+
+#### Other
+
+1. Configure the `softdelete` filter in your Doctrine config (
+   see [documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/filters.html)):
+
+```php
+<?php
+
+use mdeboer\DoctrineBehaviour\Filter\SoftDeleteFilter;
+
+// Your ORM configuration
+$config = ...;
+
+// Add filter
+$config->addFilter('softdelete', SoftDeleteFilter::class);
+
+// Create your Entity Manager
+$em = new EntityManager(...);
+
+// Enable expirable filter
+$em->getFilters()->enable('softdelete');
+```
 
 ## Example
 

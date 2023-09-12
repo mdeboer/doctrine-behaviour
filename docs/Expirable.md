@@ -1,10 +1,47 @@
 # Expirable Behaviour
 
+## Usage
+
 1. Create your entity class implementing `mdeboer\DoctrineBehaviour\ExpirableInterface`.
 2. Use the `mdeboer\DoctrineBehaviour\ExpirableTrait` trait.
-3. Optionally set up the `mdeboer\DoctrineBehaviour\Filter\ExpirableFilter` filter (please see
-   the [Doctrine documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/2.11/reference/filters.html)
-   on filters).
+
+### Registering the filter
+
+#### Symfony
+
+1. Configure the `expirable` filter in your Doctrine config:
+
+```yaml
+doctrine:
+    orm:
+        filters:
+            expirable:
+                class: 'mdeboer\DoctrineBehaviour\Filter\ExpirableFilter'
+                enabled: true
+```
+
+#### Other
+
+1. Configure the `expirable` filter in your Doctrine config (
+   see [documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/filters.html)):
+
+```php
+<?php
+
+use mdeboer\DoctrineBehaviour\Filter\ExpirableFilter;
+
+// Your ORM configuration
+$config = ...;
+
+// Add filter
+$config->addFilter('expirable', ExpirableFilter::class);
+
+// Create your Entity Manager
+$em = new EntityManager(...);
+
+// Enable expirable filter
+$em->getFilters()->enable('expirable');
+```
 
 ## Example
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace mdeboer\DoctrineBehaviour\Tests\Fixtures;
+namespace mdeboer\DoctrineBehaviour\Test\Fixtures\Entities;
 
+use Doctrine\ORM\Mapping\Entity;
 use mdeboer\DoctrineBehaviour\SoftDeletableInterface;
 use mdeboer\DoctrineBehaviour\SoftDeletableTrait;
-use Doctrine\ORM\Mapping\Entity;
 
 #[Entity]
 class SoftDeletableEntity extends AbstractEntity implements SoftDeletableInterface

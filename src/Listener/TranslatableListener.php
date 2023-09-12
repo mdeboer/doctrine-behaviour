@@ -2,35 +2,23 @@
 
 declare(strict_types=1);
 
-namespace mdeboer\DoctrineBehaviour\Subscriber;
+namespace mdeboer\DoctrineBehaviour\Listener;
 
-use mdeboer\DoctrineBehaviour\TranslatableInterface;
-use mdeboer\DoctrineBehaviour\TranslationInterface;
-use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Util\ClassUtils as DoctrineClassUtils;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
-use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\Persistence\Mapping\ClassMetadata;
+use mdeboer\DoctrineBehaviour\TranslatableInterface;
+use mdeboer\DoctrineBehaviour\TranslationInterface;
 
 /**
  * Translatable event subscriber.
  *
  * This event subscriber adds the required mapping for translatable entities and their translations.
  */
-class TranslatableSubscriber implements EventSubscriber
+class TranslatableListener
 {
-    /**
-     * @inheritDoc
-     */
-    public function getSubscribedEvents(): array
-    {
-        return [
-            Events::loadClassMetadata
-        ];
-    }
-
     /**
      * Load class metadata.
      *
@@ -116,8 +104,6 @@ class TranslatableSubscriber implements EventSubscriber
                 'inversedBy' => 'translations',
                 'joinColumns' => [
                     [
-                        'name' => 'translatable_id',
-                        'referencedColumnName' => 'id',
                         'onDelete' => 'CASCADE',
                         'nullable' => false
                     ]

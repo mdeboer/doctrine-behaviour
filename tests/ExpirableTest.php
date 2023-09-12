@@ -5,8 +5,8 @@ namespace mdeboer\DoctrineBehaviour\Tests;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use mdeboer\DoctrineBehaviour\ExpirableTrait;
-use mdeboer\DoctrineBehaviour\Tests\Assertions\DateAssertions;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\ExpirableEntity;
+use mdeboer\DoctrineBehaviour\Test\Assertions\DateAssertions;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\ExpirableEntity;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -35,155 +35,155 @@ class ExpirableTest extends TestCase
         CarbonImmutable::setTestNowAndTimezone();
     }
 
-    public function testCanSetExpiresAtWithMutable()
+    public function testCanSetExpiresAtWithMutable(): void
     {
         $entity = new ExpirableEntity();
         $date = Carbon::now()->addHours(3);
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
 
         $entity->setExpiresAt($date);
 
-        $this->assertDateEquals($date, $entity->getExpiresAt());
+        static::assertDateEquals($date, $entity->getExpiresAt());
     }
 
-    public function testCanSetExpiresAtWithImmutable()
+    public function testCanSetExpiresAtWithImmutable(): void
     {
         $entity = new ExpirableEntity();
         $date = CarbonImmutable::now()->addHours(3);
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
 
         $entity->setExpiresAt($date);
 
-        $this->assertDateEquals($date, $entity->getExpiresAt());
+        static::assertDateEquals($date, $entity->getExpiresAt());
     }
 
-    public function testCanUnsetExpiresAt()
+    public function testCanUnsetExpiresAt(): void
     {
         $entity = new ExpirableEntity();
         $date = Carbon::now()->addHours(3);
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
 
         $entity->setExpiresAt($date);
 
-        $this->assertDateEquals($date, $entity->getExpiresAt());
+        static::assertDateEquals($date, $entity->getExpiresAt());
 
         $entity->setExpiresAt(null);
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
     }
 
-    public function testCanSetExpiresInWithDateInterval()
+    public function testCanSetExpiresInWithDateInterval(): void
     {
         $entity = new ExpirableEntity();
         $date = Carbon::now()->addHours(3);
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
 
         $entity->setExpiresIn(new \DateInterval('PT3H'));
 
-        $this->assertDateEquals($date, $entity->getExpiresAt());
+        static::assertDateEquals($date, $entity->getExpiresAt());
     }
 
-    public function testCanSetExpiresInWithString()
+    public function testCanSetExpiresInWithString(): void
     {
         $entity = new ExpirableEntity();
         $date = Carbon::now()->addHours(3);
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
 
         $entity->setExpiresIn('3 hours');
 
-        $this->assertDateEquals($date, $entity->getExpiresAt());
+        static::assertDateEquals($date, $entity->getExpiresAt());
     }
 
-    public function testCanUnsetExpiresIn()
+    public function testCanUnsetExpiresIn(): void
     {
         $entity = new ExpirableEntity();
         $date = Carbon::now()->addHours(3);
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
 
         $entity->setExpiresIn(new \DateInterval('PT3H'));
 
-        $this->assertDateEquals($date, $entity->getExpiresAt());
+        static::assertDateEquals($date, $entity->getExpiresAt());
 
         $entity->setExpiresIn(null);
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
     }
 
-    public function testIsExpiredWithPastDate()
+    public function testIsExpiredWithPastDate(): void
     {
         $entity = new ExpirableEntity();
         $date = Carbon::now()->subHours(2);
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
 
         $entity->setExpiresAt($date);
 
-        $this->assertTrue($entity->isExpired());
+        static::assertTrue($entity->isExpired());
     }
 
-    public function testIsExpiredWithCurrentDate()
+    public function testIsExpiredWithCurrentDate(): void
     {
         $entity = new ExpirableEntity();
         $date = Carbon::now();
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
 
         $entity->setExpiresAt($date);
 
-        $this->assertTrue($entity->isExpired());
+        static::assertTrue($entity->isExpired());
     }
 
-    public function testIsNotExpiredWithFutureDate()
+    public function testIsNotExpiredWithFutureDate(): void
     {
         $entity = new ExpirableEntity();
         $date = Carbon::now()->addHours(3);
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
 
         $entity->setExpiresAt($date);
 
-        $this->assertFalse($entity->isExpired());
+        static::assertFalse($entity->isExpired());
     }
 
-    public function testIsNotExpiredWithNoDate()
+    public function testIsNotExpiredWithNoDate(): void
     {
         $entity = new ExpirableEntity();
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
 
-        $this->assertFalse($entity->isExpired());
+        static::assertFalse($entity->isExpired());
     }
 
-    public function testCanExpireImmediately()
+    public function testCanExpireImmediately(): void
     {
         $entity = new ExpirableEntity();
         $date = Carbon::now();
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
 
         $entity->expire();
 
-        $this->assertTrue($entity->isExpired());
-        $this->assertDateEquals($date, $entity->getExpiresAt());
+        static::assertTrue($entity->isExpired());
+        static::assertDateEquals($date, $entity->getExpiresAt());
     }
 
-    public function testCanUnexpire()
+    public function testCanUnexpire(): void
     {
         $entity = new ExpirableEntity();
         $date = Carbon::now()->addHours(3);
 
         $entity->setExpiresAt($date);
 
-        $this->assertDateEquals($date, $entity->getExpiresAt());
+        static::assertDateEquals($date, $entity->getExpiresAt());
 
         $entity->unexpire();
 
-        $this->assertNull($entity->getExpiresAt());
+        static::assertNull($entity->getExpiresAt());
     }
 }

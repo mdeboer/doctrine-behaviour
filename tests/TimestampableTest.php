@@ -4,8 +4,8 @@ namespace mdeboer\DoctrineBehaviour\Tests;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use mdeboer\DoctrineBehaviour\Tests\Assertions\DateAssertions;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Timestampable\TimestampableEntity;
+use mdeboer\DoctrineBehaviour\Test\Assertions\DateAssertions;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TimestampableEntity;
 use mdeboer\DoctrineBehaviour\TimestampableTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -35,67 +35,67 @@ class TimestampableTest extends TestCase
         CarbonImmutable::setTestNowAndTimezone();
     }
 
-    public function testCanSetCreatedAtWithMutable()
+    public function testCanSetCreatedAtWithMutable(): void
     {
         $entity = new TimestampableEntity();
         $date = Carbon::now()->addHours(3);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $date);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
 
         $entity->setCreatedAt($date);
 
-        $this->assertDateEquals($date, $entity->getCreatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertDateEquals($date, $entity->getCreatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
     }
 
-    public function testCanSetCreatedAtWithImmutable()
+    public function testCanSetCreatedAtWithImmutable(): void
     {
         $entity = new TimestampableEntity();
         $date = CarbonImmutable::now()->addHours(3);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $date);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
 
         $entity->setCreatedAt($date);
 
-        $this->assertDateEquals($date, $entity->getCreatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertDateEquals($date, $entity->getCreatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
     }
 
-    public function testCanSetUpdatedAtWithMutable()
+    public function testCanSetUpdatedAtWithMutable(): void
     {
         $entity = new TimestampableEntity();
         $date = Carbon::now()->addHours(3);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $date);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
 
         $entity->setUpdatedAt($date);
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertDateEquals($date, $entity->getUpdatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertDateEquals($date, $entity->getUpdatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
     }
 
-    public function testCanSetUpdatedAtWithImmutable()
+    public function testCanSetUpdatedAtWithImmutable(): void
     {
         $entity = new TimestampableEntity();
         $date = CarbonImmutable::now()->addHours(3);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $date);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
 
         $entity->setUpdatedAt($date);
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertDateEquals($date, $entity->getUpdatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertDateEquals($date, $entity->getUpdatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
     }
 }

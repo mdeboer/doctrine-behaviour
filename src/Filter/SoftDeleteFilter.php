@@ -2,9 +2,9 @@
 
 namespace mdeboer\DoctrineBehaviour\Filter;
 
-use mdeboer\DoctrineBehaviour\SoftDeletableInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Filter\SQLFilter;
+use mdeboer\DoctrineBehaviour\SoftDeletableInterface;
 
 /**
  * Soft-delete SQL filter.
@@ -25,7 +25,7 @@ class SoftDeleteFilter extends SQLFilter
         $platform = $connection->getDatabasePlatform();
 
         // Get quoted column name
-        $column = $targetTableAlias . '.deleted_at';
+        $column = sprintf("%s.%s", $targetTableAlias, $targetEntity->getColumnName('deletedAt'));
 
         // Return constraint where deletedAt is NULL
         return sprintf('%s IS NULL', $platform->quoteIdentifier($column));

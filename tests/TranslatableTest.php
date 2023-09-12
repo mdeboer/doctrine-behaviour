@@ -2,15 +2,15 @@
 
 namespace mdeboer\DoctrineBehaviour\Tests;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use mdeboer\DoctrineBehaviour\Exception\TranslationNotFoundException;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\OtherEntityTranslation;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntity;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntityTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TranslatableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TranslatableEntityTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\OtherEntityTranslation;
 use mdeboer\DoctrineBehaviour\TranslatableTrait;
 use mdeboer\DoctrineBehaviour\TranslationInterface;
 use mdeboer\DoctrineBehaviour\TranslationTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -24,8 +24,8 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertTrue($translations->isEmpty());
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertTrue($translations->isEmpty());
     }
 
     public function testCanInitialiseWithArray(): void
@@ -37,16 +37,16 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(2, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(2, $translations);
 
-        $this->assertTrue($translations->contains($englishTranslation));
-        $this->assertSame($entity, $englishTranslation->getTranslatable());
-        $this->assertArrayHasKey('en', $translations);
+        static::assertTrue($translations->contains($englishTranslation));
+        static::assertSame($entity, $englishTranslation->getTranslatable());
+        static::assertArrayHasKey('en', $translations);
 
-        $this->assertTrue($translations->contains($germanTranslation));
-        $this->assertSame($entity, $germanTranslation->getTranslatable());
-        $this->assertArrayHasKey('de', $translations);
+        static::assertTrue($translations->contains($germanTranslation));
+        static::assertSame($entity, $germanTranslation->getTranslatable());
+        static::assertArrayHasKey('de', $translations);
     }
 
     public function testCanInitialiseWithArrayCollection(): void
@@ -60,16 +60,16 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(2, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(2, $translations);
 
-        $this->assertTrue($translations->contains($englishTranslation));
-        $this->assertSame($entity, $englishTranslation->getTranslatable());
-        $this->assertArrayHasKey('en', $translations);
+        static::assertTrue($translations->contains($englishTranslation));
+        static::assertSame($entity, $englishTranslation->getTranslatable());
+        static::assertArrayHasKey('en', $translations);
 
-        $this->assertTrue($translations->contains($germanTranslation));
-        $this->assertSame($entity, $germanTranslation->getTranslatable());
-        $this->assertArrayHasKey('de', $translations);
+        static::assertTrue($translations->contains($germanTranslation));
+        static::assertSame($entity, $germanTranslation->getTranslatable());
+        static::assertArrayHasKey('de', $translations);
     }
 
     public function testCanInitialiseWithArrayContainingDuplicates(): void
@@ -88,20 +88,20 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(2, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(2, $translations);
 
-        $this->assertFalse($translations->contains($englishTranslation1));
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertNotSame($translations['en'], $englishTranslation1);
+        static::assertFalse($translations->contains($englishTranslation1));
+        static::assertArrayHasKey('en', $translations);
+        static::assertNotSame($translations['en'], $englishTranslation1);
 
-        $this->assertTrue($translations->contains($englishTranslation2));
-        $this->assertSame($entity, $englishTranslation2->getTranslatable());
-        $this->assertSame($translations['en'], $englishTranslation2);
+        static::assertTrue($translations->contains($englishTranslation2));
+        static::assertSame($entity, $englishTranslation2->getTranslatable());
+        static::assertSame($translations['en'], $englishTranslation2);
 
-        $this->assertTrue($translations->contains($germanTranslation));
-        $this->assertSame($entity, $germanTranslation->getTranslatable());
-        $this->assertArrayHasKey('de', $translations);
+        static::assertTrue($translations->contains($germanTranslation));
+        static::assertSame($entity, $germanTranslation->getTranslatable());
+        static::assertArrayHasKey('de', $translations);
     }
 
     public function testCanInitialiseWithArrayCollectionContainingDuplicates(): void
@@ -122,20 +122,20 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(2, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(2, $translations);
 
-        $this->assertFalse($translations->contains($englishTranslation1));
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertNotSame($translations['en'], $englishTranslation1);
+        static::assertFalse($translations->contains($englishTranslation1));
+        static::assertArrayHasKey('en', $translations);
+        static::assertNotSame($translations['en'], $englishTranslation1);
 
-        $this->assertTrue($translations->contains($englishTranslation2));
-        $this->assertSame($entity, $englishTranslation2->getTranslatable());
-        $this->assertSame($translations['en'], $englishTranslation2);
+        static::assertTrue($translations->contains($englishTranslation2));
+        static::assertSame($entity, $englishTranslation2->getTranslatable());
+        static::assertSame($translations['en'], $englishTranslation2);
 
-        $this->assertTrue($translations->contains($germanTranslation));
-        $this->assertSame($entity, $germanTranslation->getTranslatable());
-        $this->assertArrayHasKey('de', $translations);
+        static::assertTrue($translations->contains($germanTranslation));
+        static::assertSame($entity, $germanTranslation->getTranslatable());
+        static::assertArrayHasKey('de', $translations);
     }
 
     public function testThrowsExceptionOnInitWithInvalidTranslation(): void
@@ -175,29 +175,29 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertCount(2, $translations);
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertArrayHasKey('nl', $translations);
+        static::assertCount(2, $translations);
+        static::assertArrayHasKey('en', $translations);
+        static::assertArrayHasKey('nl', $translations);
 
         /** @var TranslationInterface $translation */
         foreach ($translations as $translation) {
-            $this->assertSame($entity, $translation->getTranslatable());
+            static::assertSame($entity, $translation->getTranslatable());
         }
 
         $clone = clone $entity;
 
         $translations = $clone->getTranslations();
 
-        $this->assertCount(2, $translations);
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertArrayHasKey('nl', $translations);
+        static::assertCount(2, $translations);
+        static::assertArrayHasKey('en', $translations);
+        static::assertArrayHasKey('nl', $translations);
 
         // Make sure that translatable has been set to the cloned entity of each translation.
         /** @var TranslationInterface $translation */
         foreach ($translations as $translation) {
             $translatable = $translation->getTranslatable();
-            $this->assertSame($clone, $translatable);
-            $this->assertNotSame($entity, $translatable);
+            static::assertSame($clone, $translatable);
+            static::assertNotSame($entity, $translatable);
         }
     }
 
@@ -210,9 +210,9 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertCount(1, $translations);
-        $this->assertTrue($translations->contains($translation));
-        $this->assertSame($entity, $translation->getTranslatable());
+        static::assertCount(1, $translations);
+        static::assertTrue($translations->contains($translation));
+        static::assertSame($entity, $translation->getTranslatable());
     }
 
     public function testThrowsExceptionOnAddWithTranslationOfOtherEntity(): void
@@ -237,20 +237,20 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(2, $translations);
-        $this->assertTrue($translations->contains($translationToRemove));
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertArrayHasKey('nl', $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(2, $translations);
+        static::assertTrue($translations->contains($translationToRemove));
+        static::assertArrayHasKey('en', $translations);
+        static::assertArrayHasKey('nl', $translations);
 
         // Remove translation
         $entity->removeTranslation($translationToRemove);
 
         $translations = $entity->getTranslations();
 
-        $this->assertCount(1, $translations);
-        $this->assertFalse($translations->contains($translationToRemove));
-        $this->assertArrayNotHasKey('en', $translations);
+        static::assertCount(1, $translations);
+        static::assertFalse($translations->contains($translationToRemove));
+        static::assertArrayNotHasKey('en', $translations);
     }
 
     public function testHasTranslation(): void
@@ -264,14 +264,14 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(2, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(2, $translations);
 
-        $this->assertTrue($entity->hasTranslation('en'));
-        $this->assertTrue($entity->hasTranslation('nl'));
-        $this->assertFalse($entity->hasTranslation(''));
-        $this->assertFalse($entity->hasTranslation('de'));
-        $this->assertFalse($entity->hasTranslation('en_US'));
+        static::assertTrue($entity->hasTranslation('en'));
+        static::assertTrue($entity->hasTranslation('nl'));
+        static::assertFalse($entity->hasTranslation(''));
+        static::assertFalse($entity->hasTranslation('de'));
+        static::assertFalse($entity->hasTranslation('en_US'));
     }
 
     public function testHasTranslationThrowsOnInvalidLocale(): void
@@ -293,8 +293,8 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(0, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(0, $translations);
 
         $entity->setTranslations(
             [
@@ -305,13 +305,13 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(2, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(2, $translations);
 
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertArrayHasKey('nl', $translations);
-        $this->assertSame($entity, $translations['en']->getTranslatable());
-        $this->assertSame($entity, $translations['nl']->getTranslatable());
+        static::assertArrayHasKey('en', $translations);
+        static::assertArrayHasKey('nl', $translations);
+        static::assertSame($entity, $translations['en']->getTranslatable());
+        static::assertSame($entity, $translations['nl']->getTranslatable());
     }
 
     public function testSetTranslationsRemovesOtherTranslations(): void
@@ -325,9 +325,9 @@ class TranslatableTest extends TestCase
         $translations = $entity->getTranslations();
 
         // Make sure we have the DE translation.
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(1, $translations);
-        $this->assertArrayHasKey('de', $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(1, $translations);
+        static::assertArrayHasKey('de', $translations);
 
         $entity->setTranslations(
             [
@@ -338,13 +338,13 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(2, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(2, $translations);
 
         // Make sure we have EN and NL translations and that the DE translation is removed.
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertArrayHasKey('nl', $translations);
-        $this->assertArrayNotHasKey('de', $translations);
+        static::assertArrayHasKey('en', $translations);
+        static::assertArrayHasKey('nl', $translations);
+        static::assertArrayNotHasKey('de', $translations);
     }
 
     public function testSetTranslationsReplacesExistingTranslationsOfNewInstance(): void
@@ -359,10 +359,10 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(1, $translations);
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertSame($existingTranslation, $translations['en']);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(1, $translations);
+        static::assertArrayHasKey('en', $translations);
+        static::assertSame($existingTranslation, $translations['en']);
 
         $entity->setTranslations(
             [
@@ -373,13 +373,13 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(2, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(2, $translations);
 
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertArrayHasKey('nl', $translations);
-        $this->assertNotSame($existingTranslation, $translations['en']);
-        $this->assertNull($existingTranslation->getTranslatable());
+        static::assertArrayHasKey('en', $translations);
+        static::assertArrayHasKey('nl', $translations);
+        static::assertNotSame($existingTranslation, $translations['en']);
+        static::assertNull($existingTranslation->getTranslatable());
     }
 
     public function testSetTranslationsIgnoresExistingTranslationsOfSameInstance(): void
@@ -394,10 +394,10 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(1, $translations);
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertSame($existingTranslation, $translations['en']);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(1, $translations);
+        static::assertArrayHasKey('en', $translations);
+        static::assertSame($existingTranslation, $translations['en']);
 
         $existingTranslation->id = 33;
 
@@ -409,12 +409,12 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(1, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(1, $translations);
 
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertSame($existingTranslation, $translations['en']);
-        $this->assertSame($entity, $existingTranslation->getTranslatable());
+        static::assertArrayHasKey('en', $translations);
+        static::assertSame($existingTranslation, $translations['en']);
+        static::assertSame($entity, $existingTranslation->getTranslatable());
     }
 
     public function testThrowsExceptionOnSetTranslationsWithTranslationOfOtherEntity(): void
@@ -438,18 +438,18 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(0, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(0, $translations);
 
         // Call translate with new locale.
         $newTranslation = $entity->translate('en');
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(1, $translations);
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertSame($newTranslation, $translations['en']);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(1, $translations);
+        static::assertArrayHasKey('en', $translations);
+        static::assertSame($newTranslation, $translations['en']);
     }
 
     public function testTranslateWithNewLocale(): void
@@ -462,20 +462,20 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(1, $translations);
-        $this->assertArrayHasKey('de', $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(1, $translations);
+        static::assertArrayHasKey('de', $translations);
 
         // Call translate with new locale.
         $newTranslation = $entity->translate('en');
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(2, $translations);
-        $this->assertArrayHasKey('de', $translations);
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertSame($newTranslation, $translations['en']);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(2, $translations);
+        static::assertArrayHasKey('de', $translations);
+        static::assertArrayHasKey('en', $translations);
+        static::assertSame($newTranslation, $translations['en']);
     }
 
     public function testTranslateWithExistingLocale(): void
@@ -484,20 +484,20 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(0, $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(0, $translations);
 
         // Call translate with new locale.
         $newTranslation = $entity->translate('en');
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(1, $translations);
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertSame($newTranslation, $translations['en']);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(1, $translations);
+        static::assertArrayHasKey('en', $translations);
+        static::assertSame($newTranslation, $translations['en']);
 
-        $this->assertSame($entity->translate('en'), $newTranslation);
+        static::assertSame($entity->translate('en'), $newTranslation);
     }
 
     public function testTranslateThrowsOnInvalidLocale(): void
@@ -525,17 +525,17 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(3, $translations);
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertArrayHasKey('nl', $translations);
-        $this->assertArrayHasKey('de', $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(3, $translations);
+        static::assertArrayHasKey('en', $translations);
+        static::assertArrayHasKey('nl', $translations);
+        static::assertArrayHasKey('de', $translations);
 
         $translation = $entity->translate(['nl', 'de']);
 
-        $this->assertSame($translation, $translations['nl']);
-        $this->assertSame('nl', $translation->getLocale());
-        $this->assertSame($entity, $translation->getTranslatable());
+        static::assertSame($translation, $translations['nl']);
+        static::assertSame('nl', $translation->getLocale());
+        static::assertSame($entity, $translation->getTranslatable());
     }
 
     public function testTranslateReturnsFallbackTranslationInArray(): void
@@ -550,17 +550,17 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(3, $translations);
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertArrayHasKey('nl', $translations);
-        $this->assertArrayHasKey('de', $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(3, $translations);
+        static::assertArrayHasKey('en', $translations);
+        static::assertArrayHasKey('nl', $translations);
+        static::assertArrayHasKey('de', $translations);
 
         $translation = $entity->translate(['it', 'fr', 'de', 'nl']);
 
-        $this->assertSame($translation, $translations['de']);
-        $this->assertSame('de', $translation->getLocale());
-        $this->assertSame($entity, $translation->getTranslatable());
+        static::assertSame($translation, $translations['de']);
+        static::assertSame('de', $translation->getLocale());
+        static::assertSame($entity, $translation->getTranslatable());
     }
 
     public function testTranslateThrowsWhenTranslationNotFoundInArray(): void
@@ -575,11 +575,11 @@ class TranslatableTest extends TestCase
 
         $translations = $entity->getTranslations();
 
-        $this->assertInstanceOf(Collection::class, $translations);
-        $this->assertCount(3, $translations);
-        $this->assertArrayHasKey('en', $translations);
-        $this->assertArrayHasKey('nl', $translations);
-        $this->assertArrayHasKey('de', $translations);
+        static::assertInstanceOf(Collection::class, $translations);
+        static::assertCount(3, $translations);
+        static::assertArrayHasKey('en', $translations);
+        static::assertArrayHasKey('nl', $translations);
+        static::assertArrayHasKey('de', $translations);
 
         $this->expectException(TranslationNotFoundException::class);
 

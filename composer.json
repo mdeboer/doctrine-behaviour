@@ -10,6 +10,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "mdeboer\\DoctrineBehaviour\\Test\\": "test/",
             "mdeboer\\DoctrineBehaviour\\Tests\\": "tests/"
         }
     },

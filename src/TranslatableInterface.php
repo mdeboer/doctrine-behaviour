@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace mdeboer\DoctrineBehaviour;
 
-use mdeboer\DoctrineBehaviour\Exception\TranslationNotFoundException;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Selectable;
+use mdeboer\DoctrineBehaviour\Exception\TranslationNotFoundException;
 
 /**
  * Translatable interface.

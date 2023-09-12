@@ -4,9 +4,43 @@
 2. Create your translation class implementing `mdeboer\DoctrineBehaviour\TranslationInterface`.
 3. Use the `mdeboer\DoctrineBehaviour\TranslatableTrait` trait on the translatable entity.
 4. Use the `mdeboer\DoctrineBehaviour\TranslationTrait` trait on the translation entity.
-5. Either add the required mappings to each translatable and translation entity yourself or register
-   the `mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber` Symfony event
-   subscriber to automatically apply the required mappings to all translatable and translation entities (preferred).
+
+### Registering the events
+
+#### Symfony
+
+1. Load the `mdeboer\DoctrineBehaviour\Listener\TranslatableListener` as service in your Symfony config.
+2. Tag the service with the `doctrine.event_listener` tag with the `event` option set to `loadClassMetadata`:
+
+```yaml
+# config/services.yaml
+services:
+    # ...
+    mdeboer\DoctrineBehaviour\Listener\TranslatableListener:
+        tags:
+            - { name: 'doctrine.event_listener', event: 'loadClassMetadata' }
+```
+
+#### Other
+
+1. Register the `loadClassMetadata` event in the `EventManager`:
+
+```php
+<?php
+
+use mdeboer\DoctrineBehaviour\Listener\TranslatableListener;
+
+// Some code to get an instance of your entity manager.
+$em = $this->getEntityManager();
+
+// Register the loadClassMetadata event.
+$em
+    ->getEventManager()
+    ->addEventListener(
+        ['loadClassMetadata'],
+        new TranslatableListener()
+    );
+```
 
 ## Example
 
