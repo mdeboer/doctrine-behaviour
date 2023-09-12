@@ -26,7 +26,7 @@ class ExpirableFilter extends SQLFilter
         $platform = $connection->getDatabasePlatform();
 
         // Get quoted column name
-        $column = $targetTableAlias . '.expires_at';
+        $column = sprintf('%s.%s', $targetTableAlias, $targetEntity->getColumnName('expiresAt'));
 
         // Return constraint where deletedAt is NULL or in the future
         return sprintf(

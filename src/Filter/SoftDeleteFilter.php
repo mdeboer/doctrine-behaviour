@@ -25,7 +25,7 @@ class SoftDeleteFilter extends SQLFilter
         $platform = $connection->getDatabasePlatform();
 
         // Get quoted column name
-        $column = $targetTableAlias . '.deleted_at';
+        $column = sprintf("%s.%s", $targetTableAlias, $targetEntity->getColumnName('deletedAt'));
 
         // Return constraint where deletedAt is NULL
         return sprintf('%s IS NULL', $platform->quoteIdentifier($column));

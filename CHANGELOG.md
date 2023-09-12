@@ -13,7 +13,7 @@ Please see [UPGRADING.md](UPGRADING.md) for upgrade instructions.
 
 ### Added
 
-- [Upgrading](UPGRADING.md) document 
+- [Upgrading](UPGRADING.md) document
 
 ### Changed
 
@@ -22,6 +22,11 @@ Please see [UPGRADING.md](UPGRADING.md) for upgrade instructions.
   Please see the updated documentation for [Timestampable](docs/Timestampable.md)
   and [Translatable](docs/Translatable.md) or see [UPGRADING](UPGRADING.md).
 - Restructured and improved the tests
+
+### Fixed
+
+- Fixed expirable filter not always using correct column name
+- Fixed soft-delete filter not always using correct column name
 
 ## [3.0.0] - 2023-07-30
 
@@ -73,7 +78,7 @@ where it is maintained. It is still maintained by me.
 
 [Unreleased]: https://github.com/mdeboer/doctrine-behaviour/compare/v3.0.0...develop
 
-#[4.0.0]: https://github.com/mdeboer/doctrine-behaviour/compare/v3.0.0...v4.0.0 
+#[4.0.0]: https://github.com/mdeboer/doctrine-behaviour/compare/v3.0.0...v4.0.0
 
 [3.0.0]: https://github.com/mdeboer/doctrine-behaviour/compare/v2.1.0...v3.0.0
 
