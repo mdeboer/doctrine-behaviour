@@ -2,9 +2,9 @@
 
 namespace mdeboer\DoctrineBehaviour;
 
-use mdeboer\DoctrineBehaviour\Exception\TranslationNotFoundException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use mdeboer\DoctrineBehaviour\Exception\TranslationNotFoundException;
 
 /**
  * Translatable trait.

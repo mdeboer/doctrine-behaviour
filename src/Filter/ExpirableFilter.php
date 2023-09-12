@@ -3,10 +3,10 @@
 namespace mdeboer\DoctrineBehaviour\Filter;
 
 use Carbon\CarbonImmutable;
-use mdeboer\DoctrineBehaviour\ExpirableInterface;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Filter\SQLFilter;
+use mdeboer\DoctrineBehaviour\ExpirableInterface;
 
 /**
  * Expirable SQL filter.

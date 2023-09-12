@@ -2,9 +2,9 @@
 
 namespace mdeboer\DoctrineBehaviour\Filter;
 
-use mdeboer\DoctrineBehaviour\SoftDeletableInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Filter\SQLFilter;
+use mdeboer\DoctrineBehaviour\SoftDeletableInterface;
 
 /**
  * Soft-delete SQL filter.

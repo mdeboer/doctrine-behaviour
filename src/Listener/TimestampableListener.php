@@ -5,9 +5,9 @@ namespace mdeboer\DoctrineBehaviour\Listener;
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PrePersistEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use mdeboer\DoctrineBehaviour\TimestampableInterface;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 
 class TimestampableListener
 {
