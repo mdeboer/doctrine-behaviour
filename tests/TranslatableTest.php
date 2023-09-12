@@ -2,15 +2,15 @@
 
 namespace mdeboer\DoctrineBehaviour\Tests;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use mdeboer\DoctrineBehaviour\Exception\TranslationNotFoundException;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\OtherEntityTranslation;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntity;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntityTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\OtherEntityTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslatableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslatableEntityTranslation;
 use mdeboer\DoctrineBehaviour\TranslatableTrait;
 use mdeboer\DoctrineBehaviour\TranslationInterface;
 use mdeboer\DoctrineBehaviour\TranslationTrait;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

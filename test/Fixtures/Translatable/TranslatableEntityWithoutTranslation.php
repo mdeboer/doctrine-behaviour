@@ -1,11 +1,11 @@
 <?php
 
-namespace mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable;
+namespace mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable;
 
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\AbstractEntity;
+use Doctrine\ORM\Mapping\Entity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\AbstractEntity;
 use mdeboer\DoctrineBehaviour\TranslatableInterface;
 use mdeboer\DoctrineBehaviour\TranslatableTrait;
-use Doctrine\ORM\Mapping\Entity;
 
 #[Entity]
 class TranslatableEntityWithoutTranslation extends AbstractEntity implements TranslatableInterface

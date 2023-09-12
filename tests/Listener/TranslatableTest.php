@@ -1,59 +1,26 @@
 <?php
 
-namespace mdeboer\DoctrineBehaviour\Tests\Subscriber;
+namespace mdeboer\DoctrineBehaviour\Tests\Listener;
 
-use mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\OtherEntityTranslation;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntity;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntityTranslation;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslatableEntityWithoutTranslation;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Translatable\TranslationEntity;
-use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
-use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
+use mdeboer\DoctrineBehaviour\Listener\TranslatableListener;
+use mdeboer\DoctrineBehaviour\Test\AbstractTestCase;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\OtherEntityTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslatableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslatableEntityTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslatableEntityWithoutTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslationEntity;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber
- */
-class TranslatableSubscriberTest extends AbstractSubscriberTestCase
+#[CoversClass(TranslatableListener::class)]
+class TranslatableTest extends AbstractTestCase
 {
-    public function testIsEventSubscriber(): void
-    {
-        $this->assertInstanceOf(EventSubscriber::class, new TranslatableSubscriber());
-    }
-
-    /**
-     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::getSubscribedEvents()
-     */
-    public function testSubscribedEvents(): void
-    {
-        $subscriber = new TranslatableSubscriber();
-
-        $this->assertEquals(
-            [Events::loadClassMetadata],
-            $subscriber->getSubscribedEvents()
-        );
-    }
-
-    /**
-     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
-     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslatable()
-     */
     public function testLoadClassMetadataForTranslatable(): void
     {
         $entityClass = TranslatableEntity::class;
+
         $em = $this->createEntityManager();
-        $metadata = $em->getClassMetadata($entityClass);
-
-        // Make sure we have no translations association.
-        $this->assertNotNull($metadata);
-        $this->assertFalse($metadata->hasAssociation('translations'));
-
-        // Trigger loadClassMetadata event.
-        $translatableSubscriber = new TranslatableSubscriber();
-        $translatableSubscriber->loadClassMetadata(new LoadClassMetadataEventArgs($metadata, $em));
 
         // Check if the association has been mapped.
         $metadata = $em->getClassMetadata($entityClass);
@@ -84,48 +51,23 @@ class TranslatableSubscriberTest extends AbstractSubscriberTestCase
         );
     }
 
-    /**
-     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
-     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslatable()
-     */
     public function testLoadClassMetadataForTranslatableWithoutTranslationClass(): void
     {
         $entityClass = TranslatableEntityWithoutTranslation::class;
         $em = $this->createEntityManager();
-        $metadata = $em->getClassMetadata($entityClass);
-
-        // Make sure we have no mapping yet.
-        $this->assertNotNull($metadata);
-        $this->assertFalse($metadata->hasAssociation('translations'));
 
         // Expect exception
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage("Translation class {$entityClass}Translation not found.");
 
-        // Trigger loadClassMetadata event.
-        $translatableSubscriber = new TranslatableSubscriber();
-        $translatableSubscriber->loadClassMetadata(new LoadClassMetadataEventArgs($metadata, $em));
+        $em->getClassMetadata($entityClass);
     }
 
-    /**
-     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
-     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslation()
-     */
     public function testLoadClassMetadataForTranslation(): void
     {
         $entityClass = TranslatableEntityTranslation::class;
+
         $em = $this->createEntityManager();
-        $metadata = $em->getClassMetadata($entityClass);
-
-        // Make sure we have no mapping yet.
-        $this->assertNotNull($metadata);
-        $this->assertFalse($metadata->hasAssociation('translatable'));
-        $this->assertFalse($metadata->hasField('locale'));
-        $this->assertEmpty($metadata->table['uniqueConstraints'] ?? []);
-
-        // Trigger loadClassMetadata event.
-        $translatableSubscriber = new TranslatableSubscriber();
-        $translatableSubscriber->loadClassMetadata(new LoadClassMetadataEventArgs($metadata, $em));
 
         // Check if the association has been mapped.
         $metadata = $em->getClassMetadata($entityClass);
@@ -200,52 +142,30 @@ class TranslatableSubscriberTest extends AbstractSubscriberTestCase
         );
     }
 
-    /**
-     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
-     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslation()
-     */
     public function testLoadClassMetadataForTranslationWithoutTranslatableClass(): void
     {
         $entityClass = OtherEntityTranslation::class;
         $entityTranslatableClass = \preg_replace('/Translation$/', '', $entityClass);
 
         $em = $this->createEntityManager();
-        $metadata = $em->getClassMetadata($entityClass);
-
-        // Make sure we have no mapping yet.
-        $this->assertNotNull($metadata);
-        $this->assertFalse($metadata->hasAssociation('translations'));
 
         // Expect exception
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage("Translatable class {$entityTranslatableClass} not found.");
 
-        // Trigger loadClassMetadata event.
-        $translatableSubscriber = new TranslatableSubscriber();
-        $translatableSubscriber->loadClassMetadata(new LoadClassMetadataEventArgs($metadata, $em));
+        $em->getClassMetadata($entityClass);
     }
 
-    /**
-     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::loadClassMetadata()
-     * @covers \mdeboer\DoctrineBehaviour\Subscriber\TranslatableSubscriber::mapTranslation()
-     */
     public function testLoadClassMetadataForTranslationWithWrongName(): void
     {
         $entityClass = TranslationEntity::class;
 
         $em = $this->createEntityManager();
-        $metadata = $em->getClassMetadata($entityClass);
-
-        // Make sure we have no mapping yet.
-        $this->assertNotNull($metadata);
-        $this->assertFalse($metadata->hasAssociation('translations'));
 
         // Expect exception
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage("Translation class name should be {$entityClass}Translation.");
 
-        // Trigger loadClassMetadata event.
-        $translatableSubscriber = new TranslatableSubscriber();
-        $translatableSubscriber->loadClassMetadata(new LoadClassMetadataEventArgs($metadata, $em));
+        $metadata = $em->getClassMetadata($entityClass);
     }
 }

@@ -5,8 +5,8 @@ namespace mdeboer\DoctrineBehaviour\Tests;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use mdeboer\DoctrineBehaviour\SoftDeletableTrait;
-use mdeboer\DoctrineBehaviour\Tests\Assertions\DateAssertions;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\SoftDeletableEntity;
+use mdeboer\DoctrineBehaviour\Test\Assertions\DateAssertions;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\SoftDeletableEntity;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

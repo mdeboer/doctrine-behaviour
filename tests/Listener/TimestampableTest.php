@@ -4,22 +4,25 @@ namespace mdeboer\DoctrineBehaviour\Tests\Listener;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use mdeboer\DoctrineBehaviour\Listener\TimestampableListener;
-use mdeboer\DoctrineBehaviour\Tests\Assertions\DateAssertions;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Timestampable\TimestampableEntity;
-use mdeboer\DoctrineBehaviour\Tests\Fixtures\Timestampable\TimestampableEntityWithoutInterfaces;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Doctrine\Persistence\ObjectManager;
-use PHPUnit\Framework\TestCase;
+use Doctrine\ORM\Events;
+use mdeboer\DoctrineBehaviour\Listener\TimestampableListener;
+use mdeboer\DoctrineBehaviour\Test\AbstractTestCase;
+use mdeboer\DoctrineBehaviour\Test\Assertions\DateAssertions;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\ExpirableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Timestampable\TimestampableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Timestampable\TimestampableEntityWithoutInterfaces;
+use mdeboer\DoctrineBehaviour\TimestampableTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \mdeboer\DoctrineBehaviour\TimestampableTrait
- * @covers \mdeboer\DoctrineBehaviour\Listener\TimestampableListener
- */
-class TimestampableListenerTest extends TestCase
+#[
+    CoversClass(TimestampableTrait::class),
+    CoversClass(TimestampableListener::class)
+]
+class TimestampableTest extends AbstractTestCase
 {
     use DateAssertions;
 
@@ -47,6 +50,7 @@ class TimestampableListenerTest extends TestCase
     {
         $entity = new TimestampableEntity();
         $listener = new TimestampableListener();
+
         $em = $this->createStub(EntityManagerInterface::class);
 
         $date = Carbon::now();
@@ -239,5 +243,51 @@ class TimestampableListenerTest extends TestCase
         // Make sure updatedAt is current time
         $this->assertDateEquals($now, $entity->getUpdatedAt());
         $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
+    }
+
+    public function testLoadClassMetadata(): void
+    {
+        $em = $this->createEntityManager();
+        $metadata = $em->getClassMetadata(TimestampableEntity::class);
+
+        $this->assertNotNull($metadata);
+        $this->assertEquals(
+            [
+                Events::prePersist => [
+                    [
+                        'class' => TimestampableListener::class,
+                        'method' => Events::prePersist
+                    ]
+                ],
+                Events::preUpdate => [
+                    [
+                        'class' => TimestampableListener::class,
+                        'method' => Events::preUpdate
+                    ]
+                ]
+            ],
+            $metadata->entityListeners
+        );
+    }
+
+    public function testLoadClassMetadataOfNonTimestampableEntity(): void
+    {
+        $em = $this->createEntityManager();
+        $metadata = $em->getClassMetadata(ExpirableEntity::class);
+
+        // Save the list of configured entity listeners.
+        $this->assertNotNull($metadata);
+
+        $listeners = $metadata->entityListeners;
+
+        // Trigger loadClassMetadata event.
+        $timestampableSubscriber = new TimestampableListener();
+        $timestampableSubscriber->loadClassMetadata(new LoadClassMetadataEventArgs($metadata, $em));
+
+        // Check if the entity listeners have been changed.
+        $metadata = $em->getClassMetadata(ExpirableEntity::class);
+
+        $this->assertNotNull($metadata);
+        $this->assertEquals($listeners, $metadata->entityListeners);
     }
 }

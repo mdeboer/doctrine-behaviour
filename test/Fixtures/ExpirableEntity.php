@@ -1,10 +1,10 @@
 <?php
 
-namespace mdeboer\DoctrineBehaviour\Tests\Fixtures;
+namespace mdeboer\DoctrineBehaviour\Test\Fixtures;
 
+use Doctrine\ORM\Mapping\Entity;
 use mdeboer\DoctrineBehaviour\ExpirableInterface;
 use mdeboer\DoctrineBehaviour\ExpirableTrait;
-use Doctrine\ORM\Mapping\Entity;
 
 #[Entity]
 class ExpirableEntity extends AbstractEntity implements ExpirableInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace mdeboer\DoctrineBehaviour\Tests\Assertions;
+namespace mdeboer\DoctrineBehaviour\Test\Assertions;
 
 use Carbon\CarbonImmutable;
 

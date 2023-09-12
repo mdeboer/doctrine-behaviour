@@ -1,10 +1,46 @@
 # Timestampable Behaviour
 
+## Usage
+
 1. Create your entity class implementing `mdeboer\DoctrineBehaviour\TimestampableInterface`.
 2. Use the `mdeboer\DoctrineBehaviour\TimestampableTrait` trait.
-3. Either add the `mdeboer\DoctrineBehaviour\Listener\TimestampableListener` entity listener to each timestampable
-   entity yourself. Or register the `mdeboer\DoctrineBehaviour\Subscriber\TimestampableSubscriber` Symfony event
-   subscriber to automatically apply the listener to each timestampable entity (preferred).
+
+### Registering the events
+
+#### Symfony
+
+1. Load `mdeboer\DoctrineBehaviour\Listener\TimestampableListener` as service in your Symfony config.
+2. Tag the service with the `doctrine.event_listener` tag with the `event` option set to `loadClassMetadata`:
+
+```yaml
+# config/services.yaml
+services:
+    # ...
+    mdeboer\DoctrineBehaviour\Listener\TimestampableListener:
+        tags:
+            - { name: 'doctrine.event_listener', event: 'loadClassMetadata' }
+```
+
+#### Other
+
+1. Register the `loadClassMetadata` event in the `EventManager`:
+
+```php
+<?php
+
+use mdeboer\DoctrineBehaviour\Listener\TimestampableListener;
+
+// Some code to get an instance of your entity manager.
+$em = $this->getEntityManager();
+
+// Register the loadClassMetadata event.
+$em
+    ->getEventManager()
+    ->addEventListener(
+        ['loadClassMetadata'],
+        new TimestampableListener()
+    );
+```
 
 ## Example
 

@@ -22,16 +22,12 @@ $ composer require mdeboer/doctrine-behaviour
 $ vendor/bin/phpunit
 ```
 
-## Documentation
+## Behaviours
 
-Please see the [docs](./docs/README.md) folder for available behaviours and their documentation.
-
-### Behaviours
-
-- Timestampable (created at, updated at)
-- SoftDeletable (deleted at)
-- Expirable (expires at)
-- Translatable
+- [Timestampable](docs/Timestampable.md) - For automatically timestamping entities (created at, updated at)
+- [SoftDeletable](docs/SoftDeletable.md) - For soft-deleting entities
+- [Expirable](docs/Expirable.md) - For entities that can have an expiration date
+- [Translatable](docs/Translatable.md) - For (partially) translatable entities
 
 ## License
 
