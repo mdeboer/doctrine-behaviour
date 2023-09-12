@@ -35,7 +35,7 @@ class TimestampableTest extends TestCase
         CarbonImmutable::setTestNowAndTimezone();
     }
 
-    public function testCanSetCreatedAtWithMutable()
+    public function testCanSetCreatedAtWithMutable(): void
     {
         $entity = new TimestampableEntity();
         $date = Carbon::now()->addHours(3);
@@ -51,7 +51,7 @@ class TimestampableTest extends TestCase
         $this->assertNull($entity->getUpdatedAt());
     }
 
-    public function testCanSetCreatedAtWithImmutable()
+    public function testCanSetCreatedAtWithImmutable(): void
     {
         $entity = new TimestampableEntity();
         $date = CarbonImmutable::now()->addHours(3);
@@ -67,7 +67,7 @@ class TimestampableTest extends TestCase
         $this->assertNull($entity->getUpdatedAt());
     }
 
-    public function testCanSetUpdatedAtWithMutable()
+    public function testCanSetUpdatedAtWithMutable(): void
     {
         $entity = new TimestampableEntity();
         $date = Carbon::now()->addHours(3);
@@ -83,7 +83,7 @@ class TimestampableTest extends TestCase
         $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
     }
 
-    public function testCanSetUpdatedAtWithImmutable()
+    public function testCanSetUpdatedAtWithImmutable(): void
     {
         $entity = new TimestampableEntity();
         $date = CarbonImmutable::now()->addHours(3);
