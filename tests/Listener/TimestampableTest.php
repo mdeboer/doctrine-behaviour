@@ -5,14 +5,13 @@ namespace mdeboer\DoctrineBehaviour\Tests\Listener;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use mdeboer\DoctrineBehaviour\Listener\TimestampableListener;
 use mdeboer\DoctrineBehaviour\Test\AbstractTestCase;
 use mdeboer\DoctrineBehaviour\Test\Assertions\DateAssertions;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\ExpirableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\NeutralEntity;
 use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TimestampableEntity;
 use mdeboer\DoctrineBehaviour\Test\Fixtures\Timestampable\TimestampableEntityWithoutInterfaces;
 use mdeboer\DoctrineBehaviour\TimestampableTrait;
@@ -247,7 +246,13 @@ class TimestampableTest extends AbstractTestCase
 
     public function testLoadClassMetadata(): void
     {
-        $em = $this->createEntityManager();
+        $em = $this->createEntityManager(eventListeners: [
+            [
+                [Events::loadClassMetadata],
+                new TimestampableListener()
+            ]
+        ]);
+
         $metadata = $em->getClassMetadata(TimestampableEntity::class);
 
         static::assertNotNull($metadata);
@@ -272,22 +277,17 @@ class TimestampableTest extends AbstractTestCase
 
     public function testLoadClassMetadataOfNonTimestampableEntity(): void
     {
-        $em = $this->createEntityManager();
-        $metadata = $em->getClassMetadata(ExpirableEntity::class);
+        $em = $this->createEntityManager(eventListeners: [
+            [
+                [Events::loadClassMetadata],
+                new TimestampableListener()
+            ]
+        ]);
 
-        // Save the list of configured entity listeners.
-        static::assertNotNull($metadata);
-
-        $listeners = $metadata->entityListeners;
-
-        // Trigger loadClassMetadata event.
-        $timestampableSubscriber = new TimestampableListener();
-        $timestampableSubscriber->loadClassMetadata(new LoadClassMetadataEventArgs($metadata, $em));
-
-        // Check if the entity listeners have been changed.
-        $metadata = $em->getClassMetadata(ExpirableEntity::class);
+        // Make sure no entity listeners were added to non-timestampable entities.
+        $metadata = $em->getClassMetadata(NeutralEntity::class);
 
         static::assertNotNull($metadata);
-        static::assertEquals($listeners, $metadata->entityListeners);
+        static::assertEmpty($metadata->entityListeners);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace mdeboer\DoctrineBehaviour\Tests\Listener;
 
+use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 use mdeboer\DoctrineBehaviour\Listener\TranslatableListener;
@@ -20,7 +21,12 @@ class TranslatableTest extends AbstractTestCase
     {
         $entityClass = TranslatableEntity::class;
 
-        $em = $this->createEntityManager();
+        $em = $this->createEntityManager(eventListeners: [
+            [
+                [Events::loadClassMetadata],
+                new TranslatableListener()
+            ]
+        ]);
 
         // Check if the association has been mapped.
         $metadata = $em->getClassMetadata($entityClass);
@@ -54,7 +60,13 @@ class TranslatableTest extends AbstractTestCase
     public function testLoadClassMetadataForTranslatableWithoutTranslationClass(): void
     {
         $entityClass = TranslatableEntityWithoutTranslation::class;
-        $em = $this->createEntityManager();
+
+        $em = $this->createEntityManager(eventListeners: [
+            [
+                [Events::loadClassMetadata],
+                new TranslatableListener()
+            ]
+        ]);
 
         // Expect exception
         $this->expectException(MappingException::class);
@@ -67,7 +79,12 @@ class TranslatableTest extends AbstractTestCase
     {
         $entityClass = TranslatableEntityTranslation::class;
 
-        $em = $this->createEntityManager();
+        $em = $this->createEntityManager(eventListeners: [
+            [
+                [Events::loadClassMetadata],
+                new TranslatableListener()
+            ]
+        ]);
 
         // Check if the association has been mapped.
         $metadata = $em->getClassMetadata($entityClass);
@@ -147,7 +164,12 @@ class TranslatableTest extends AbstractTestCase
         $entityClass = OtherEntityTranslation::class;
         $entityTranslatableClass = \preg_replace('/Translation$/', '', $entityClass);
 
-        $em = $this->createEntityManager();
+        $em = $this->createEntityManager(eventListeners: [
+            [
+                [Events::loadClassMetadata],
+                new TranslatableListener()
+            ]
+        ]);
 
         // Expect exception
         $this->expectException(MappingException::class);
@@ -160,7 +182,12 @@ class TranslatableTest extends AbstractTestCase
     {
         $entityClass = TranslationEntity::class;
 
-        $em = $this->createEntityManager();
+        $em = $this->createEntityManager(eventListeners: [
+            [
+                [Events::loadClassMetadata],
+                new TranslatableListener()
+            ]
+        ]);
 
         // Expect exception
         $this->expectException(MappingException::class);

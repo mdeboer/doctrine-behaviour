@@ -4,18 +4,13 @@ namespace mdeboer\DoctrineBehaviour\Test;
 
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Events;
-use Doctrine\ORM\Exception\MissingMappingDriverImplementation;
 use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
 use mdeboer\DoctrineBehaviour\Filter\ExpirableFilter;
 use mdeboer\DoctrineBehaviour\Filter\SoftDeleteFilter;
-use mdeboer\DoctrineBehaviour\Listener\TimestampableListener;
-use mdeboer\DoctrineBehaviour\Listener\TranslatableListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
@@ -23,12 +18,14 @@ use Symfony\Component\Console\Output\NullOutput;
 abstract class AbstractTestCase extends TestCase
 {
     /**
-     * @throws MissingMappingDriverImplementation
-     * @throws Exception
+     * @param string[]                                              $paths
+     * @param array                                                 $eventListeners
+     *
+     * @psalm-param array<array-key, list{string|string[], object}> $eventListeners
      */
     protected function createEntityManager(
         ?array $paths = null,
-        ?EventManager $eventManager = null
+        array $eventListeners = []
     ): EntityManagerInterface {
         $config = ORMSetup::createAttributeMetadataConfiguration(
             paths: $paths ?? [__DIR__ . '/Fixtures/Entities'],
@@ -39,18 +36,13 @@ abstract class AbstractTestCase extends TestCase
         $config->addFilter('expirable', ExpirableFilter::class);
         $config->addFilter('softdelete', SoftDeleteFilter::class);
 
-        // Create event manager.
-        if ($eventManager === null) {
-            $eventManager = new EventManager();
+        // Register event listeners.
+        $eventManager = new EventManager();
 
+        foreach ($eventListeners as $eventListener) {
             $eventManager->addEventListener(
-                [Events::loadClassMetadata],
-                new TimestampableListener()
-            );
-
-            $eventManager->addEventListener(
-                [Events::loadClassMetadata],
-                new TranslatableListener()
+                (array)$eventListener[0],
+                $eventListener[1]
             );
         }
 
