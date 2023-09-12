@@ -3,7 +3,7 @@
 namespace mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable;
 
 use Doctrine\ORM\Mapping\Entity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\AbstractEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\AbstractEntity;
 use mdeboer\DoctrineBehaviour\TranslatableInterface;
 use mdeboer\DoctrineBehaviour\TranslatableTrait;
 

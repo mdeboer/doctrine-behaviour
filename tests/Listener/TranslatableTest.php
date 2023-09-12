@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 use mdeboer\DoctrineBehaviour\Listener\TranslatableListener;
 use mdeboer\DoctrineBehaviour\Test\AbstractTestCase;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TranslatableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TranslatableEntityTranslation;
 use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\OtherEntityTranslation;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslatableEntity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslatableEntityTranslation;
 use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslatableEntityWithoutTranslation;
 use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslationEntity;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -25,10 +25,10 @@ class TranslatableTest extends AbstractTestCase
         // Check if the association has been mapped.
         $metadata = $em->getClassMetadata($entityClass);
 
-        $this->assertNotNull($metadata);
+        static::assertNotNull($metadata);
 
-        $this->assertTrue($metadata->hasAssociation('translations'));
-        $this->assertEquals(
+        static::assertTrue($metadata->hasAssociation('translations'));
+        static::assertEquals(
             [
                 'fieldName' => 'translations',
                 'targetEntity' => TranslatableEntityTranslation::class,
@@ -72,10 +72,10 @@ class TranslatableTest extends AbstractTestCase
         // Check if the association has been mapped.
         $metadata = $em->getClassMetadata($entityClass);
 
-        $this->assertNotNull($metadata);
-        $this->assertTrue($metadata->hasAssociation('translatable'));
+        static::assertNotNull($metadata);
+        static::assertTrue($metadata->hasAssociation('translatable'));
 
-        $this->assertEquals(
+        static::assertEquals(
             [
                 'fieldName' => 'translatable',
                 'targetEntity' => TranslatableEntity::class,
@@ -114,8 +114,8 @@ class TranslatableTest extends AbstractTestCase
         );
 
         // Check locale field
-        $this->assertTrue($metadata->hasField('locale'));
-        $this->assertEquals(
+        static::assertTrue($metadata->hasField('locale'));
+        static::assertEquals(
             [
                 'fieldName' => 'locale',
                 'type' => 'string',
@@ -127,9 +127,9 @@ class TranslatableTest extends AbstractTestCase
 
         // Check unique constraints
         // FIXME: Unique constraint currently breaks due to a wrong order in the unit of work, see for example: https://github.com/doctrine/orm/issues/6776
-        $this->assertEmpty($metadata->table['uniqueConstraints'] ?? []);
+        static::assertEmpty($metadata->table['uniqueConstraints'] ?? []);
 
-        $this->assertNotEquals(
+        static::assertNotEquals(
             [
                 "{$metadata->getTableName()}_uniq_trans" => [
                     'columns' => [
@@ -166,6 +166,6 @@ class TranslatableTest extends AbstractTestCase
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage("Translation class name should be {$entityClass}Translation.");
 
-        $metadata = $em->getClassMetadata($entityClass);
+        $em->getClassMetadata($entityClass);
     }
 }

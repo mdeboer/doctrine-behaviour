@@ -12,8 +12,8 @@ use Doctrine\ORM\Events;
 use mdeboer\DoctrineBehaviour\Listener\TimestampableListener;
 use mdeboer\DoctrineBehaviour\Test\AbstractTestCase;
 use mdeboer\DoctrineBehaviour\Test\Assertions\DateAssertions;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\ExpirableEntity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Timestampable\TimestampableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\ExpirableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TimestampableEntity;
 use mdeboer\DoctrineBehaviour\Test\Fixtures\Timestampable\TimestampableEntityWithoutInterfaces;
 use mdeboer\DoctrineBehaviour\TimestampableTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -54,19 +54,19 @@ class TimestampableTest extends AbstractTestCase
         $em = $this->createStub(EntityManagerInterface::class);
 
         $date = Carbon::now();
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $date);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
 
         $listener->prePersist($entity, new PrePersistEventArgs($entity, $em));
 
         // Make sure createdAt and updatedAt are current time
-        $this->assertDateEquals($date, $entity->getCreatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
+        static::assertDateEquals($date, $entity->getCreatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
 
-        $this->assertDateEquals($date, $entity->getUpdatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
+        static::assertDateEquals($date, $entity->getUpdatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
     }
 
     public function testPrePersistWithCreationDateSet(): void
@@ -77,24 +77,24 @@ class TimestampableTest extends AbstractTestCase
 
         $now = CarbonImmutable::now();
         $created = $now->subHours(3);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $now);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $created);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $now);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $created);
 
         $entity->setCreatedAt($created);
 
-        $this->assertDateEquals($created, $entity->getCreatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertDateEquals($created, $entity->getCreatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
 
         $listener->prePersist($entity, new PrePersistEventArgs($entity, $em));
 
         // Make sure createdAt is not modified
-        $this->assertDateEquals($created, $entity->getCreatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
+        static::assertDateEquals($created, $entity->getCreatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
 
         // Make sure updatedAt is current time
-        $this->assertDateEquals($now, $entity->getUpdatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
+        static::assertDateEquals($now, $entity->getUpdatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
     }
 
     public function testPrePersistWithBothDatesSet(): void
@@ -105,25 +105,25 @@ class TimestampableTest extends AbstractTestCase
 
         $now = CarbonImmutable::now();
         $created = $now->subHours(3);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $now);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $created);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $now);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $created);
 
         $entity->setCreatedAt($created);
         $entity->setUpdatedAt($created);
 
-        $this->assertDateEquals($created, $entity->getCreatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
-        $this->assertDateEquals($created, $entity->getUpdatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
+        static::assertDateEquals($created, $entity->getCreatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
+        static::assertDateEquals($created, $entity->getUpdatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
 
         $listener->prePersist($entity, new PrePersistEventArgs($entity, $em));
 
         // Make sure createdAt and updatedAt are not modified
-        $this->assertDateEquals($created, $entity->getCreatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
+        static::assertDateEquals($created, $entity->getCreatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
 
-        $this->assertDateEquals($created, $entity->getUpdatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
+        static::assertDateEquals($created, $entity->getUpdatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
     }
 
     public function testPrePersistWithNonTimestampableEntity(): void
@@ -133,15 +133,15 @@ class TimestampableTest extends AbstractTestCase
         $em = $this->createStub(EntityManagerInterface::class);
 
         $date = Carbon::now();
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $date);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
 
         $listener->prePersist($entity, new PrePersistEventArgs($entity, $em));
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
     }
 
     public function testPreUpdateWithNonTimestampableEntity(): void
@@ -151,16 +151,16 @@ class TimestampableTest extends AbstractTestCase
         $em = $this->createStub(EntityManagerInterface::class);
 
         $date = Carbon::now();
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $date);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
 
         $changeSet = [];
         $listener->preUpdate($entity, new PreUpdateEventArgs($entity, $em, $changeSet));
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
     }
 
     public function testPreUpdateWithoutDatesSet(): void
@@ -171,18 +171,18 @@ class TimestampableTest extends AbstractTestCase
 
         $now = CarbonImmutable::now();
 
-        $this->assertNull($entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertNull($entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
 
         $changeSet = [];
         $listener->preUpdate($entity, new PreUpdateEventArgs($entity, $em, $changeSet));
 
         // Make sure createdAt is not modified
-        $this->assertNull($entity->getCreatedAt());
+        static::assertNull($entity->getCreatedAt());
 
         // Make sure updatedAt is current time
-        $this->assertDateEquals($now, $entity->getUpdatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
+        static::assertDateEquals($now, $entity->getUpdatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
     }
 
     public function testPreUpdateWithCreationDateSet(): void
@@ -193,25 +193,25 @@ class TimestampableTest extends AbstractTestCase
 
         $now = CarbonImmutable::now();
         $created = $now->subHours(3);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $now);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $created);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $now);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $created);
 
         $entity->setCreatedAt($created);
 
-        $this->assertDateEquals($created, $entity->getCreatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
-        $this->assertNull($entity->getUpdatedAt());
+        static::assertDateEquals($created, $entity->getCreatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
+        static::assertNull($entity->getUpdatedAt());
 
         $changeSet = [];
         $listener->preUpdate($entity, new PreUpdateEventArgs($entity, $em, $changeSet));
 
         // Make sure createdAt is not modified
-        $this->assertDateEquals($created, $entity->getCreatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
+        static::assertDateEquals($created, $entity->getCreatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
 
         // Make sure updatedAt is current time
-        $this->assertDateEquals($now, $entity->getUpdatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
+        static::assertDateEquals($now, $entity->getUpdatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
     }
 
     public function testPreUpdateWithBothDatesSet(): void
@@ -222,27 +222,27 @@ class TimestampableTest extends AbstractTestCase
 
         $now = CarbonImmutable::now();
         $created = $now->subHours(3);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $now);
-        $this->assertDateTimezoneEquals('Europe/Amsterdam', $created);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $now);
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $created);
 
         $entity->setCreatedAt($created);
         $entity->setUpdatedAt($created);
 
-        $this->assertDateEquals($created, $entity->getCreatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
-        $this->assertDateEquals($created, $entity->getUpdatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
+        static::assertDateEquals($created, $entity->getCreatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
+        static::assertDateEquals($created, $entity->getUpdatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
 
         $changeSet = [];
         $listener->preUpdate($entity, new PreUpdateEventArgs($entity, $em, $changeSet));
 
         // Make sure createdAt is not modified
-        $this->assertDateEquals($created, $entity->getCreatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
+        static::assertDateEquals($created, $entity->getCreatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
 
         // Make sure updatedAt is current time
-        $this->assertDateEquals($now, $entity->getUpdatedAt());
-        $this->assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
+        static::assertDateEquals($now, $entity->getUpdatedAt());
+        static::assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
     }
 
     public function testLoadClassMetadata(): void
@@ -250,8 +250,8 @@ class TimestampableTest extends AbstractTestCase
         $em = $this->createEntityManager();
         $metadata = $em->getClassMetadata(TimestampableEntity::class);
 
-        $this->assertNotNull($metadata);
-        $this->assertEquals(
+        static::assertNotNull($metadata);
+        static::assertEquals(
             [
                 Events::prePersist => [
                     [
@@ -276,7 +276,7 @@ class TimestampableTest extends AbstractTestCase
         $metadata = $em->getClassMetadata(ExpirableEntity::class);
 
         // Save the list of configured entity listeners.
-        $this->assertNotNull($metadata);
+        static::assertNotNull($metadata);
 
         $listeners = $metadata->entityListeners;
 
@@ -287,7 +287,7 @@ class TimestampableTest extends AbstractTestCase
         // Check if the entity listeners have been changed.
         $metadata = $em->getClassMetadata(ExpirableEntity::class);
 
-        $this->assertNotNull($metadata);
-        $this->assertEquals($listeners, $metadata->entityListeners);
+        static::assertNotNull($metadata);
+        static::assertEquals($listeners, $metadata->entityListeners);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable;
+namespace mdeboer\DoctrineBehaviour\Test\Fixtures\Entities;
 
 use Doctrine\ORM\Mapping\Entity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\AbstractEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\AbstractEntity;
 use mdeboer\DoctrineBehaviour\TranslatableInterface;
 use mdeboer\DoctrineBehaviour\TranslatableTrait;
 

@@ -10,11 +10,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Exception\MissingMappingDriverImplementation;
 use Doctrine\ORM\ORMSetup;
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
 use mdeboer\DoctrineBehaviour\Filter\ExpirableFilter;
 use mdeboer\DoctrineBehaviour\Filter\SoftDeleteFilter;
 use mdeboer\DoctrineBehaviour\Listener\TimestampableListener;
 use mdeboer\DoctrineBehaviour\Listener\TranslatableListener;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\NullOutput;
 
 abstract class AbstractTestCase extends TestCase
 {
@@ -27,7 +31,7 @@ abstract class AbstractTestCase extends TestCase
         ?EventManager $eventManager = null
     ): EntityManagerInterface {
         $config = ORMSetup::createAttributeMetadataConfiguration(
-            paths: $paths ?? [dirname(__DIR__) . '/Fixtures'],
+            paths: $paths ?? [__DIR__ . '/Fixtures/Entities'],
             isDevMode: true
         );
 
@@ -66,12 +70,19 @@ abstract class AbstractTestCase extends TestCase
             eventManager: $eventManager
         );
 
-        // Enable filters.
-        $filters = $em->getFilters();
-
-        $filters->enable('expirable');
-        $filters->enable('softdelete');
+        // Create schema.
+        $this->createSchema($em);
 
         return $em;
+    }
+
+    protected function createSchema(EntityManagerInterface $em): void
+    {
+        $app = ConsoleRunner::createApplication(new SingleManagerProvider($em));
+
+        $app->get('orm:schema-tool:create')->run(
+            new StringInput(''),
+            new NullOutput()
+        );
     }
 }
