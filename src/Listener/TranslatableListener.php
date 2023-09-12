@@ -104,8 +104,6 @@ class TranslatableListener
                 'inversedBy' => 'translations',
                 'joinColumns' => [
                     [
-                        'name' => 'translatable_id',
-                        'referencedColumnName' => 'id',
                         'onDelete' => 'CASCADE',
                         'nullable' => false
                     ]
