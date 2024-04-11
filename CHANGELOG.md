@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.0] - 2024-04-11
+
 ### Changed
 
 - Optimised `translate()` in [TranslatableTrait](src/TranslatableTrait.php)
@@ -80,9 +82,11 @@ where it is maintained. It is still maintained by me.
 
 - Timestampable subscriber to automatically add entity listener to timestampable entities.
 
-[Unreleased]: https://github.com/mdeboer/doctrine-behaviour/compare/v3.0.0...develop
+[Unreleased]: https://github.com/mdeboer/doctrine-behaviour/compare/v4.1.0...develop
 
-#[4.0.0]: https://github.com/mdeboer/doctrine-behaviour/compare/v3.0.0...v4.0.0
+[4.1.0]: https://github.com/mdeboer/doctrine-behaviour/compare/v4.0.0...v4.1.0
+
+[4.0.0]: https://github.com/mdeboer/doctrine-behaviour/compare/v3.0.0...v4.0.0
 
 [3.0.0]: https://github.com/mdeboer/doctrine-behaviour/compare/v2.1.0...v3.0.0
 
