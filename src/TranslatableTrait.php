@@ -4,12 +4,15 @@ namespace mdeboer\DoctrineBehaviour;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Selectable;
 use mdeboer\DoctrineBehaviour\Exception\TranslationNotFoundException;
 
 /**
  * Translatable trait.
  *
  * @template T of TranslationInterface
+ *
  * @implements TranslatableInterface<T>
  */
 trait TranslatableTrait
@@ -162,15 +165,56 @@ trait TranslatableTrait
      *
      * @throws TranslationNotFoundException When locale parameter is an array and none of the translations for these
      *                                      locales could be found.
-     *
      * @return T
      */
     public function translate(string|array $locale): TranslationInterface
     {
         if (is_array($locale)) {
+            // Clean up locales.
+            $locale = array_unique($locale);
+
+            foreach ($locale as &$l) {
+                $l = \Locale::canonicalize($l);
+
+                if ($l === null) {
+                    throw new \InvalidArgumentException('Invalid locale.');
+                }
+            }
+            unset($l);
+
+            // Find translation in Selectable collection.
+            if ($this->translations instanceof Selectable) {
+                $translations = $this->translations
+                    ->matching(
+                        Criteria::create()
+                            ->where(
+                                count($locale) > 1
+                                    ? Criteria::expr()->in('locale', $locale)
+                                    : Criteria::expr()->eq('locale', $locale[0])
+                            )
+                    );
+
+                foreach ($locale as $l) {
+                    foreach ($translations as $translation) {
+                        if ($translation->getLocale() === $l) {
+                            $this->currentTranslation = \WeakReference::create($translation);
+
+                            return $translation;
+                        }
+                    }
+                }
+
+                throw new TranslationNotFoundException();
+            }
+
+            // Find translation in regular collection.
             foreach ($locale as $l) {
-                if ($this->hasTranslation($l)) {
-                    return $this->translate($l);
+                if ($this->translations->containsKey($locale)) {
+                    $translation = $this->translations->get($locale);
+
+                    $this->currentTranslation = \WeakReference::create($translation);
+
+                    return $translation;
                 }
             }
 
@@ -206,7 +250,6 @@ trait TranslatableTrait
 
     /**
      * Initialise translatable entity.
-     *
      * Call this method in __construct!
      *
      * @param T[]|ArrayCollection<array-key, T> $translations
@@ -236,7 +279,6 @@ trait TranslatableTrait
 
     /**
      * Clone translations.
-     *
      * Call this method in __clone (optional)!
      *
      * @return void

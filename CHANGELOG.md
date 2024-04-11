@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Optimised `translate()` in [TranslatableTrait](src/TranslatableTrait.php)
+
 ## [4.0.0] - 2023-09-12
 
 Please see [UPGRADING.md](UPGRADING.md) for upgrade instructions.
