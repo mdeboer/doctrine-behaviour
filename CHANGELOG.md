@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.1] - 2024-04-15
+
 ### Changed
 
 - Updated dependencies
@@ -86,7 +88,9 @@ where it is maintained. It is still maintained by me.
 
 - Timestampable subscriber to automatically add entity listener to timestampable entities.
 
-[Unreleased]: https://github.com/mdeboer/doctrine-behaviour/compare/v4.1.0...develop
+[Unreleased]: https://github.com/mdeboer/doctrine-behaviour/compare/v4.1.1...develop
+
+[4.1.1]: https://github.com/mdeboer/doctrine-behaviour/compare/v4.1.0...v4.1.1
 
 [4.1.0]: https://github.com/mdeboer/doctrine-behaviour/compare/v4.0.0...v4.1.0
 
