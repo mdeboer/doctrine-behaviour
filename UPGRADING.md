@@ -1,5 +1,23 @@
 # Upgrading
 
+## 4.x - 5.0.0
+
+It is unlikely that you will need to do anything, things should still work. But it is important to note that this
+library no longer depends on [Carbon](https://carbon.nesbot.com) but now works
+with [PSR-20 Clock](https://www.php-fig.org/psr/psr-20/) provided by
+the [Symfony Clock](https://symfony.com/doc/current/components/clock.html) component.
+
+### Time mocking with Carbon
+
+In case you relied on the time mocking features of [Carbon](https://carbon.nesbot.com) in your application, make sure to
+use initialise a [Carbon WrapperClock](https://github.com/briannesbitt/Carbon/blob/3.x/src/Carbon/WrapperClock.php)
+instance and set it as the global clock using `Clock::set()`.
+
+### Timestampable listener
+
+The `mdeboer\DoctrineBehaviour\Listener\TimestampableListener` can now optionally be constructed with a clock instance.
+When set, entities will be timestamped using this clock. By default, this will use the global clock set.
+
 ## 3.0.0 - 4.0.0
 
 ### Timestampable

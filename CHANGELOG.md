@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.0] - 2025-02-21
+
+### Added
+
+- Cleaned up and added strict type declarations.
+- Added PHP_CodeSniffer (and fixer) configuration.
+
+### Changed
+
+- Replaced [Carbon](https://carbon.nesbot.com) with [PSR-20 Clock](https://www.php-fig.org/psr/psr-20/) implementation
+  using [Symfony Clock](https://symfony.com/doc/current/components/clock.html).
+
 ## [4.1.1] - 2024-04-15
 
 ### Changed
@@ -88,7 +100,9 @@ where it is maintained. It is still maintained by me.
 
 - Timestampable subscriber to automatically add entity listener to timestampable entities.
 
-[Unreleased]: https://github.com/mdeboer/doctrine-behaviour/compare/v4.1.1...develop
+[Unreleased]: https://github.com/mdeboer/doctrine-behaviour/compare/v5.0.0...develop
+
+[5.0.0]: https://github.com/mdeboer/doctrine-behaviour/compare/v4.1.1...v5.0.0
 
 [4.1.1]: https://github.com/mdeboer/doctrine-behaviour/compare/v4.1.0...v4.1.1
 
