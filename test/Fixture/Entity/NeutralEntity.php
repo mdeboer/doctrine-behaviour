@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace mdeboer\DoctrineBehaviour\Test\Fixtures\Entities;
+namespace mdeboer\DoctrineBehaviour\Test\Fixture\Entity;
 
 use Doctrine\ORM\Mapping\Entity;
 

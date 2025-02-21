@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace mdeboer\DoctrineBehaviour\Tests\Filter;
 
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
 use mdeboer\DoctrineBehaviour\ExpirableTrait;
 use mdeboer\DoctrineBehaviour\Filter\ExpirableFilter;
 use mdeboer\DoctrineBehaviour\Test\AbstractTestCase;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\ExpirableEntity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\NeutralEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\ExpirableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\NeutralEntity;
+use mdeboer\DoctrineBehaviour\Test\Trait\MockedTimeTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[
@@ -19,25 +18,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 ]
 class ExpirableFilterTest extends AbstractTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Freeze time
-        $now = Carbon::now('Europe/Amsterdam');
-
-        Carbon::setTestNowAndTimezone($now);
-        CarbonImmutable::setTestNowAndTimezone($now);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        // Unfreeze time
-        Carbon::setTestNowAndTimezone();
-        CarbonImmutable::setTestNowAndTimezone();
-    }
+    use MockedTimeTrait;
 
     public function testFilterExpiredEntities(): void
     {

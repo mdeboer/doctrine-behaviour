@@ -1,9 +1,11 @@
 <?php
 
-namespace mdeboer\DoctrineBehaviour\Test\Fixtures\Timestampable;
+declare(strict_types=1);
+
+namespace mdeboer\DoctrineBehaviour\Test\Fixture\Timestampable;
 
 use Doctrine\ORM\Mapping\Entity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\AbstractEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\AbstractEntity;
 use mdeboer\DoctrineBehaviour\TimestampableTrait;
 
 #[Entity]

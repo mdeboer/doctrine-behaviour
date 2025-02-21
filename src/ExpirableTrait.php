@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace mdeboer\DoctrineBehaviour;
 
-use Carbon\CarbonImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Clock\Clock;
 
 /**
  * Expirable trait.
@@ -56,12 +56,15 @@ trait ExpirableTrait
     {
         $date = null;
 
-        if (empty($time) === false) {
+        if ($time !== null) {
             if (is_string($time)) {
                 $time = \DateInterval::createFromDateString($time);
             }
 
-            $date = CarbonImmutable::now('UTC')->add($time)->toDateTimeImmutable();
+            $date = Clock::get()
+                ->withTimeZone('UTC')
+                ->now()
+                ->add($time);
         }
 
         $this->expiresAt = $date;
@@ -76,7 +79,7 @@ trait ExpirableTrait
      */
     public function isExpired(): bool
     {
-        if (isset($this->expiresAt) && $this->getExpiresAt() <= CarbonImmutable::now('UTC')) {
+        if (isset($this->expiresAt) && $this->getExpiresAt() <= Clock::get()->now()) {
             return true;
         }
 
@@ -90,7 +93,9 @@ trait ExpirableTrait
      */
     public function expire(): self
     {
-        $this->setExpiresAt(CarbonImmutable::now('UTC'));
+        $this->setExpiresAt(
+            Clock::get()->withTimeZone('UTC')->now()
+        );
 
         return $this;
     }

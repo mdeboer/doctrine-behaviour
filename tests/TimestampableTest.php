@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mdeboer\DoctrineBehaviour\Tests;
 
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
-use mdeboer\DoctrineBehaviour\Test\Assertions\DateAssertions;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TimestampableEntity;
+use mdeboer\DoctrineBehaviour\Test\Assertion\DateAssertions;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\TimestampableEntity;
+use mdeboer\DoctrineBehaviour\Test\Trait\MockedTimeTrait;
 use mdeboer\DoctrineBehaviour\TimestampableTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -14,31 +15,12 @@ use PHPUnit\Framework\TestCase;
 class TimestampableTest extends TestCase
 {
     use DateAssertions;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Freeze time
-        $now = Carbon::now('Europe/Amsterdam');
-
-        Carbon::setTestNowAndTimezone($now);
-        CarbonImmutable::setTestNowAndTimezone($now);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        // Unfreeze time
-        Carbon::setTestNowAndTimezone();
-        CarbonImmutable::setTestNowAndTimezone();
-    }
+    use MockedTimeTrait;
 
     public function testCanSetCreatedAtWithMutable(): void
     {
         $entity = new TimestampableEntity();
-        $date = Carbon::now()->addHours(3);
+        $date = \DateTime::createFromImmutable($this->clock->now()->modify('+3 hours'));
         static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
         static::assertNull($entity->getCreatedAt());
@@ -54,7 +36,7 @@ class TimestampableTest extends TestCase
     public function testCanSetCreatedAtWithImmutable(): void
     {
         $entity = new TimestampableEntity();
-        $date = CarbonImmutable::now()->addHours(3);
+        $date = $this->clock->now()->modify('+3 hours');
         static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
         static::assertNull($entity->getCreatedAt());
@@ -70,7 +52,7 @@ class TimestampableTest extends TestCase
     public function testCanSetUpdatedAtWithMutable(): void
     {
         $entity = new TimestampableEntity();
-        $date = Carbon::now()->addHours(3);
+        $date = \DateTime::createFromImmutable($this->clock->now()->modify('+3 hours'));
         static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
         static::assertNull($entity->getCreatedAt());
@@ -86,7 +68,7 @@ class TimestampableTest extends TestCase
     public function testCanSetUpdatedAtWithImmutable(): void
     {
         $entity = new TimestampableEntity();
-        $date = CarbonImmutable::now()->addHours(3);
+        $date = $this->clock->now()->modify('+3 hours');
         static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
         static::assertNull($entity->getCreatedAt());

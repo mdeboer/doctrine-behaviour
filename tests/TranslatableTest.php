@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mdeboer\DoctrineBehaviour\Tests;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use mdeboer\DoctrineBehaviour\Exception\TranslationNotFoundException;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TranslatableEntity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TranslatableEntityTranslation;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\OtherEntityTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\TranslatableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\TranslatableEntityTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Translatable\OtherEntityTranslation;
 use mdeboer\DoctrineBehaviour\TranslatableTrait;
 use mdeboer\DoctrineBehaviour\TranslationInterface;
 use mdeboer\DoctrineBehaviour\TranslationTrait;

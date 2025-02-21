@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mdeboer\DoctrineBehaviour\Tests\Listener;
 
 use Doctrine\ORM\Events;
@@ -7,11 +9,11 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 use mdeboer\DoctrineBehaviour\Listener\TranslatableListener;
 use mdeboer\DoctrineBehaviour\Test\AbstractTestCase;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TranslatableEntity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TranslatableEntityTranslation;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\OtherEntityTranslation;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslatableEntityWithoutTranslation;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Translatable\TranslationEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\TranslatableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\TranslatableEntityTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Translatable\OtherEntityTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Translatable\TranslatableEntityWithoutTranslation;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Translatable\TranslationEntity;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[CoversClass(TranslatableListener::class)]

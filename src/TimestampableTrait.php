@@ -42,7 +42,7 @@ trait TimestampableTrait
             $date = \DateTimeImmutable::createFromInterface($date);
         }
 
-        $this->createdAt = $date->setTimezone(new \DateTimeZone('UTC'));;
+        $this->createdAt = $date->setTimezone(new \DateTimeZone('UTC'));
 
         return $this;
     }
@@ -70,7 +70,7 @@ trait TimestampableTrait
             $date = \DateTimeImmutable::createFromInterface($date);
         }
 
-        $this->updatedAt = $date->setTimezone(new \DateTimeZone('UTC'));;
+        $this->updatedAt = $date->setTimezone(new \DateTimeZone('UTC'));
 
         return $this;
     }

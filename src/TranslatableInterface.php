@@ -61,10 +61,10 @@ interface TranslatableInterface
     /**
      * Get or create translation.
      *
-     * @param string|string[] $locale      Translation locale, if a string and the translation is missing it will be
-     *                                     created. When an array, it will return the preferred translation based on
-     *                                     the order of the array or throw an exception; no translation will be created
-     *                                     in this case.
+     * @param string|string[] $locale Translation locale, if a string and the translation is missing it will be
+     *                                created. When an array, it will return the preferred translation based on
+     *                                the order of the array or throw an exception; no translation will be created
+     *                                in this case.
      *
      * @throws TranslationNotFoundException When locale parameter is an array and none of the translations for these
      *                                      locales could be found.

@@ -120,7 +120,8 @@ class TranslatableListener
             ]
         );
 
-        // FIXME: Unique constraint currently breaks due to a wrong order in the unit of work, see for example: https://github.com/doctrine/orm/issues/6776
+        // FIXME: Unique constraint currently breaks due to a wrong order in the unit of work
+        //        see for example: https://github.com/doctrine/orm/issues/6776
 
         // Get existing unique constraints (if any).
         $uniqueConstraints = $classMetadata->table['uniqueConstraints'] ?? [];
@@ -131,10 +132,10 @@ class TranslatableListener
         ];
 
         // Add it to the class metadata.
-//        $classMetadata->setPrimaryTable(
-//            [
-//                'uniqueConstraints' => $uniqueConstraints
-//            ]
-//        );
+        //        $classMetadata->setPrimaryTable(
+        //            [
+        //                'uniqueConstraints' => $uniqueConstraints
+        //            ]
+        //        );
     }
 }
