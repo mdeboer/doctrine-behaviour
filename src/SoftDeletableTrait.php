@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace mdeboer\DoctrineBehaviour;
 
-use Carbon\CarbonImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Clock\Clock;
 
 /**
  * Soft-deletable trait.
@@ -63,7 +63,7 @@ trait SoftDeletableTrait
      */
     public function delete(): self
     {
-        $this->setDeletedAt(CarbonImmutable::now('UTC'));
+        $this->setDeletedAt(Clock::get()->withTimeZone('UTC')->now());
 
         return $this;
     }

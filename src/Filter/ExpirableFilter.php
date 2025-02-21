@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mdeboer\DoctrineBehaviour\Filter;
 
-use Carbon\CarbonImmutable;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Filter\SQLFilter;
 use mdeboer\DoctrineBehaviour\ExpirableInterface;
+use Symfony\Component\Clock\Clock;
 
 /**
  * Expirable SQL filter.
@@ -21,6 +23,9 @@ class ExpirableFilter extends SQLFilter
             return '';
         }
 
+        // Get clock.
+        $clock = Clock::get()->withTimeZone('UTC');
+
         // Get connection and database platform
         $connection = $this->getConnection();
         $platform = $connection->getDatabasePlatform();
@@ -34,7 +39,7 @@ class ExpirableFilter extends SQLFilter
             $platform->quoteIdentifier($column),
             $platform->quoteStringLiteral(
                 Type::getType('datetime_immutable')
-                    ->convertToDatabaseValue(CarbonImmutable::now('UTC'), $platform)
+                    ->convertToDatabaseValue($clock->now(), $platform)
             )
         );
     }

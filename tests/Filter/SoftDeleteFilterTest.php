@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace mdeboer\DoctrineBehaviour\Tests\Filter;
 
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
-use mdeboer\DoctrineBehaviour\ExpirableTrait;
-use mdeboer\DoctrineBehaviour\Filter\ExpirableFilter;
 use mdeboer\DoctrineBehaviour\Filter\SoftDeleteFilter;
 use mdeboer\DoctrineBehaviour\SoftDeletableTrait;
 use mdeboer\DoctrineBehaviour\Test\AbstractTestCase;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\ExpirableEntity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\NeutralEntity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\SoftDeletableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\NeutralEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\SoftDeletableEntity;
+use mdeboer\DoctrineBehaviour\Test\Trait\MockedTimeTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 
 #[
@@ -22,25 +18,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 ]
 class SoftDeleteFilterTest extends AbstractTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Freeze time
-        $now = Carbon::now('Europe/Amsterdam');
-
-        Carbon::setTestNowAndTimezone($now);
-        CarbonImmutable::setTestNowAndTimezone($now);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        // Unfreeze time
-        Carbon::setTestNowAndTimezone();
-        CarbonImmutable::setTestNowAndTimezone();
-    }
+    use MockedTimeTrait;
 
     public function testFilterExpiredEntities(): void
     {
@@ -59,11 +37,11 @@ class SoftDeleteFilterTest extends AbstractTestCase
         $em->persist($deletedEntity);
 
         $pastDeletedEntity = new SoftDeletableEntity();
-        $pastDeletedEntity->setDeletedAt(CarbonImmutable::now()->subDays(4));
+        $pastDeletedEntity->setDeletedAt($this->clock->now()->modify('-4 days'));
         $em->persist($pastDeletedEntity);
 
         $futureDeletedEntity = new SoftDeletableEntity();
-        $futureDeletedEntity->setDeletedAt(CarbonImmutable::now()->addDays(4));
+        $futureDeletedEntity->setDeletedAt($this->clock->now()->modify('+4 days'));
         $em->persist($futureDeletedEntity);
 
         // Flush changes.

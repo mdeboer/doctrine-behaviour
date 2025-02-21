@@ -1,19 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mdeboer\DoctrineBehaviour\Tests\Listener;
 
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use mdeboer\DoctrineBehaviour\Listener\TimestampableListener;
 use mdeboer\DoctrineBehaviour\Test\AbstractTestCase;
-use mdeboer\DoctrineBehaviour\Test\Assertions\DateAssertions;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\NeutralEntity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\TimestampableEntity;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Timestampable\TimestampableEntityWithoutInterfaces;
+use mdeboer\DoctrineBehaviour\Test\Assertion\DateAssertions;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\NeutralEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\TimestampableEntity;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Timestampable\TimestampableEntityWithoutInterfaces;
+use mdeboer\DoctrineBehaviour\Test\Trait\MockedTimeTrait;
 use mdeboer\DoctrineBehaviour\TimestampableTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 
@@ -24,26 +25,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 class TimestampableTest extends AbstractTestCase
 {
     use DateAssertions;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Freeze time
-        $now = Carbon::now('Europe/Amsterdam');
-
-        Carbon::setTestNowAndTimezone($now);
-        CarbonImmutable::setTestNowAndTimezone($now);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        // Unfreeze time
-        Carbon::setTestNowAndTimezone();
-        CarbonImmutable::setTestNowAndTimezone();
-    }
+    use MockedTimeTrait;
 
     public function testPrePersistWithoutDatesSet(): void
     {
@@ -52,8 +34,8 @@ class TimestampableTest extends AbstractTestCase
 
         $em = $this->createStub(EntityManagerInterface::class);
 
-        $date = Carbon::now();
-        static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
+        $now = $this->clock->now();
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $now);
 
         static::assertNull($entity->getCreatedAt());
         static::assertNull($entity->getUpdatedAt());
@@ -61,10 +43,10 @@ class TimestampableTest extends AbstractTestCase
         $listener->prePersist($entity, new PrePersistEventArgs($entity, $em));
 
         // Make sure createdAt and updatedAt are current time
-        static::assertDateEquals($date, $entity->getCreatedAt());
+        static::assertDateEquals($now, $entity->getCreatedAt());
         static::assertDateTimezoneEquals('UTC', $entity->getCreatedAt());
 
-        static::assertDateEquals($date, $entity->getUpdatedAt());
+        static::assertDateEquals($now, $entity->getUpdatedAt());
         static::assertDateTimezoneEquals('UTC', $entity->getUpdatedAt());
     }
 
@@ -74,8 +56,8 @@ class TimestampableTest extends AbstractTestCase
         $listener = new TimestampableListener();
         $em = $this->createStub(EntityManagerInterface::class);
 
-        $now = CarbonImmutable::now();
-        $created = $now->subHours(3);
+        $now = $this->clock->now();
+        $created = $now->modify('-3 hours');
         static::assertDateTimezoneEquals('Europe/Amsterdam', $now);
         static::assertDateTimezoneEquals('Europe/Amsterdam', $created);
 
@@ -102,8 +84,8 @@ class TimestampableTest extends AbstractTestCase
         $listener = new TimestampableListener();
         $em = $this->createStub(EntityManagerInterface::class);
 
-        $now = CarbonImmutable::now();
-        $created = $now->subHours(3);
+        $now = $this->clock->now();
+        $created = $now->modify('-3 hours');
         static::assertDateTimezoneEquals('Europe/Amsterdam', $now);
         static::assertDateTimezoneEquals('Europe/Amsterdam', $created);
 
@@ -131,8 +113,8 @@ class TimestampableTest extends AbstractTestCase
         $listener = new TimestampableListener();
         $em = $this->createStub(EntityManagerInterface::class);
 
-        $date = Carbon::now();
-        static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
+        $now = $this->clock->now();
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $now);
 
         static::assertNull($entity->getCreatedAt());
         static::assertNull($entity->getUpdatedAt());
@@ -149,8 +131,8 @@ class TimestampableTest extends AbstractTestCase
         $listener = new TimestampableListener();
         $em = $this->createStub(EntityManagerInterface::class);
 
-        $date = Carbon::now();
-        static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
+        $now = $this->clock->now();
+        static::assertDateTimezoneEquals('Europe/Amsterdam', $now);
 
         static::assertNull($entity->getCreatedAt());
         static::assertNull($entity->getUpdatedAt());
@@ -168,7 +150,7 @@ class TimestampableTest extends AbstractTestCase
         $listener = new TimestampableListener();
         $em = $this->createStub(EntityManagerInterface::class);
 
-        $now = CarbonImmutable::now();
+        $now = $this->clock->now();
 
         static::assertNull($entity->getCreatedAt());
         static::assertNull($entity->getUpdatedAt());
@@ -190,8 +172,8 @@ class TimestampableTest extends AbstractTestCase
         $listener = new TimestampableListener();
         $em = $this->createStub(EntityManagerInterface::class);
 
-        $now = CarbonImmutable::now();
-        $created = $now->subHours(3);
+        $now = $this->clock->now();
+        $created = $now->modify('-3 hours');
         static::assertDateTimezoneEquals('Europe/Amsterdam', $now);
         static::assertDateTimezoneEquals('Europe/Amsterdam', $created);
 
@@ -219,8 +201,8 @@ class TimestampableTest extends AbstractTestCase
         $listener = new TimestampableListener();
         $em = $this->createStub(EntityManagerInterface::class);
 
-        $now = CarbonImmutable::now();
-        $created = $now->subHours(3);
+        $now = $this->clock->now();
+        $created = $now->modify('-3 hours');
         static::assertDateTimezoneEquals('Europe/Amsterdam', $now);
         static::assertDateTimezoneEquals('Europe/Amsterdam', $created);
 

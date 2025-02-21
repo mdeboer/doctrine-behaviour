@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mdeboer\DoctrineBehaviour\Test;
 
 use Doctrine\Common\EventManager;
@@ -18,17 +20,19 @@ use Symfony\Component\Console\Output\NullOutput;
 abstract class AbstractTestCase extends TestCase
 {
     /**
-     * @param string[]                                              $paths
-     * @param array                                                 $eventListeners
+     * Create entity manager.
      *
-     * @psalm-param array<array-key, list{string|string[], object}> $eventListeners
+     * @param string[]                          $paths
+     * @param array{0: array|string, 1: object} $eventListeners
+     *
+     * @return EntityManagerInterface
      */
     protected function createEntityManager(
         ?array $paths = null,
         array $eventListeners = []
     ): EntityManagerInterface {
         $config = ORMSetup::createAttributeMetadataConfiguration(
-            paths: $paths ?? [__DIR__ . '/Fixtures/Entities'],
+            paths: $paths ?? [__DIR__ . '/Fixture/Entity'],
             isDevMode: true
         );
 

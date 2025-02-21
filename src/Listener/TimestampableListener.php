@@ -1,23 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mdeboer\DoctrineBehaviour\Listener;
 
-use Carbon\CarbonImmutable;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use mdeboer\DoctrineBehaviour\TimestampableInterface;
+use Psr\Clock\ClockInterface;
+use Symfony\Component\Clock\Clock;
 
 class TimestampableListener
 {
+    private readonly ClockInterface $clock;
+
+    public function __construct(
+        ?ClockInterface $clock = null
+    ) {
+        $this->clock = $clock ?? Clock::get();
+    }
+
     public function prePersist(object $entity, PrePersistEventArgs $event): void
     {
-        $now = CarbonImmutable::now('UTC');
-
         if (!$entity instanceof TimestampableInterface) {
             return;
         }
+
+        $now = $this->clock->now();
 
         if ($entity->getCreatedAt() === null) {
             $entity->setCreatedAt($now);
@@ -34,7 +45,7 @@ class TimestampableListener
             return;
         }
 
-        $entity->setUpdatedAt(CarbonImmutable::now('UTC'));
+        $entity->setUpdatedAt($this->clock->now());
     }
 
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs): void

@@ -1,8 +1,8 @@
 <?php
 
-namespace mdeboer\DoctrineBehaviour\Test\Assertions;
+declare(strict_types=1);
 
-use Carbon\CarbonImmutable;
+namespace mdeboer\DoctrineBehaviour\Test\Assertion;
 
 trait DateAssertions
 {
@@ -20,10 +20,12 @@ trait DateAssertions
         \DateTimeInterface $expected,
         ?\DateTimeInterface $actual
     ): void {
-        $expected = CarbonImmutable::parse($expected)->setTimezone('UTC');
+        $tz = new \DateTimeZone('UTC');
+
+        $expected = \DateTimeImmutable::createFromInterface($expected)->setTimezone($tz);
 
         if ($actual !== null) {
-            $actual = CarbonImmutable::parse($actual)->setTimezone('UTC');
+            $actual = \DateTimeImmutable::createFromInterface($actual)->setTimezone($tz);
         }
 
         static::assertEquals(
@@ -37,6 +39,8 @@ trait DateAssertions
      *
      * @param string|\DateTimeZone                  $expected
      * @param \DateTimeZone|\DateTimeInterface|null $actual
+     *
+     * @throws \DateInvalidTimeZoneException
      *
      * @return void
      */

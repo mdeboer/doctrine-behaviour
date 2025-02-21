@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PSR12 standard"
+         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/PHPCSStandards/PHP_CodeSniffer/refs/heads/master/phpcs.xsd">
+    <description>PSR12 coding standard</description>
+
+    <file>src</file>
+
+    <arg name="basepath" value="."/>
+    <arg name="colors"/>
+    <arg name="report-full"/>
+    <arg name="report-summary"/>
+
+    <rule ref="PSR12"/>
+
+    <!-- Require strict_types to be declared in each file -->
+    <rule ref="Generic.PHP.RequireStrictTypes"/>
+
+    <!-- Severity dropped until https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/110 is fixed -->
+    <rule ref="Generic.WhiteSpace.ScopeIndent.IncorrectExact">
+        <type>warning</type>
+        <severity>1</severity>
+    </rule>
+
+    <!-- Severity dropped until https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/110 is fixed -->
+    <rule ref="Generic.WhiteSpace.ScopeIndent.Incorrect">
+        <type>warning</type>
+        <severity>1</severity>
+    </rule>
+</ruleset>

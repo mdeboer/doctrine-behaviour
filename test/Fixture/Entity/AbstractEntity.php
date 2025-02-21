@@ -1,6 +1,8 @@
 <?php
 
-namespace mdeboer\DoctrineBehaviour\Test\Fixtures\Entities;
+declare(strict_types=1);
+
+namespace mdeboer\DoctrineBehaviour\Test\Fixture\Entity;
 
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;

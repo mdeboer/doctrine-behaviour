@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace mdeboer\DoctrineBehaviour\Tests;
 
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
 use mdeboer\DoctrineBehaviour\SoftDeletableTrait;
-use mdeboer\DoctrineBehaviour\Test\Assertions\DateAssertions;
-use mdeboer\DoctrineBehaviour\Test\Fixtures\Entities\SoftDeletableEntity;
+use mdeboer\DoctrineBehaviour\Test\Assertion\DateAssertions;
+use mdeboer\DoctrineBehaviour\Test\Fixture\Entity\SoftDeletableEntity;
+use mdeboer\DoctrineBehaviour\Test\Trait\MockedTimeTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -14,31 +15,12 @@ use PHPUnit\Framework\TestCase;
 class SoftDeletableTest extends TestCase
 {
     use DateAssertions;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Freeze time
-        $now = Carbon::now('Europe/Amsterdam');
-
-        Carbon::setTestNowAndTimezone($now);
-        CarbonImmutable::setTestNowAndTimezone($now);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        // Unfreeze time
-        Carbon::setTestNowAndTimezone();
-        CarbonImmutable::setTestNowAndTimezone();
-    }
+    use MockedTimeTrait;
 
     public function testCanSetDeletedAtWithMutable(): void
     {
         $entity = new SoftDeletableEntity();
-        $date = Carbon::now();
+        $date = \DateTime::createFromImmutable($this->clock->now());
         static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
         static::assertNull($entity->getDeletedAt());
@@ -52,7 +34,7 @@ class SoftDeletableTest extends TestCase
     public function testCanSetDeletedAtWithImmutable(): void
     {
         $entity = new SoftDeletableEntity();
-        $date = CarbonImmutable::now();
+        $date = $this->clock->now();
         static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
         static::assertNull($entity->getDeletedAt());
@@ -66,7 +48,7 @@ class SoftDeletableTest extends TestCase
     public function testCanUnsetDeletedAt(): void
     {
         $entity = new SoftDeletableEntity();
-        $date = Carbon::now();
+        $date = $this->clock->now();
         static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
         static::assertNull($entity->getDeletedAt());
@@ -84,7 +66,7 @@ class SoftDeletableTest extends TestCase
     public function testIsDeletedWithPastDate(): void
     {
         $entity = new SoftDeletableEntity();
-        $date = CarbonImmutable::now()->subHours(2);
+        $date = $this->clock->now()->modify('-2 hours');
         static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
         static::assertNull($entity->getDeletedAt());
@@ -97,7 +79,7 @@ class SoftDeletableTest extends TestCase
     public function testIsDeletedWithCurrentDate(): void
     {
         $entity = new SoftDeletableEntity();
-        $date = CarbonImmutable::now();
+        $date = $this->clock->now();
         static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
         static::assertNull($entity->getDeletedAt());
@@ -110,7 +92,7 @@ class SoftDeletableTest extends TestCase
     public function testIsDeletedWithFutureDate(): void
     {
         $entity = new SoftDeletableEntity();
-        $date = CarbonImmutable::now()->addHours(3);
+        $date = $this->clock->now()->modify('+3 hours');
 
         static::assertNull($entity->getDeletedAt());
 
@@ -122,7 +104,7 @@ class SoftDeletableTest extends TestCase
     public function testCanDeleteImmediately(): void
     {
         $entity = new SoftDeletableEntity();
-        $date = Carbon::now();
+        $date = $this->clock->now();
         static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
         static::assertNull($entity->getDeletedAt());
@@ -137,7 +119,7 @@ class SoftDeletableTest extends TestCase
     public function testCanRecoverImmediately(): void
     {
         $entity = new SoftDeletableEntity();
-        $date = Carbon::now();
+        $date = $this->clock->now();
         static::assertDateTimezoneEquals('Europe/Amsterdam', $date);
 
         static::assertNull($entity->getDeletedAt());
