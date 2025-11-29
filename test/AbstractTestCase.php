@@ -60,10 +60,10 @@ abstract class AbstractTestCase extends TestCase
         );
 
         // Create entity manager.
-        $em = new EntityManager(
-            conn: $connection,
-            config: $config,
-            eventManager: $eventManager,
+        $em = EntityManager::create(
+            $connection,
+            $config,
+            $eventManager,
         );
 
         // Create schema.
