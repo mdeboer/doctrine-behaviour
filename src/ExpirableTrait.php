@@ -94,7 +94,7 @@ trait ExpirableTrait
     public function expire(): self
     {
         $this->setExpiresAt(
-            Clock::get()->withTimeZone('UTC')->now()
+            Clock::get()->withTimeZone('UTC')->now(),
         );
 
         return $this;

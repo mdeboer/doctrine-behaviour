@@ -26,8 +26,8 @@ class TranslatableTest extends AbstractTestCase
         $em = $this->createEntityManager(eventListeners: [
             [
                 [Events::loadClassMetadata],
-                new TranslatableListener()
-            ]
+                new TranslatableListener(),
+            ],
         ]);
 
         // Check if the association has been mapped.
@@ -53,9 +53,9 @@ class TranslatableTest extends AbstractTestCase
                 'isCascadePersist' => true,
                 'isCascadeRefresh' => false,
                 'isCascadeMerge' => false,
-                'isCascadeDetach' => false
+                'isCascadeDetach' => false,
             ],
-            $metadata->getAssociationMapping('translations')
+            $metadata->getAssociationMapping('translations'),
         );
     }
 
@@ -66,8 +66,8 @@ class TranslatableTest extends AbstractTestCase
         $em = $this->createEntityManager(eventListeners: [
             [
                 [Events::loadClassMetadata],
-                new TranslatableListener()
-            ]
+                new TranslatableListener(),
+            ],
         ]);
 
         // Expect exception
@@ -84,8 +84,8 @@ class TranslatableTest extends AbstractTestCase
         $em = $this->createEntityManager(eventListeners: [
             [
                 [Events::loadClassMetadata],
-                new TranslatableListener()
-            ]
+                new TranslatableListener(),
+            ],
         ]);
 
         // Check if the association has been mapped.
@@ -116,20 +116,20 @@ class TranslatableTest extends AbstractTestCase
                         'name' => 'translatable_id',
                         'referencedColumnName' => 'id',
                         'onDelete' => 'CASCADE',
-                        'nullable' => false
-                    ]
+                        'nullable' => false,
+                    ],
                 ],
                 'joinColumnFieldNames' => [
-                    'translatable_id' => 'translatable_id'
+                    'translatable_id' => 'translatable_id',
                 ],
                 'targetToSourceKeyColumns' => [
-                    'id' => 'translatable_id'
+                    'id' => 'translatable_id',
                 ],
                 'sourceToTargetKeyColumns' => [
-                    'translatable_id' => 'id'
-                ]
+                    'translatable_id' => 'id',
+                ],
             ],
-            $metadata->getAssociationMapping('translatable')
+            $metadata->getAssociationMapping('translatable'),
         );
 
         // Check locale field
@@ -139,9 +139,9 @@ class TranslatableTest extends AbstractTestCase
                 'fieldName' => 'locale',
                 'type' => 'string',
                 'length' => 12,
-                'columnName' => 'locale'
+                'columnName' => 'locale',
             ],
-            $metadata->getFieldMapping('locale')
+            $metadata->getFieldMapping('locale'),
         );
 
         // Check unique constraints
@@ -153,11 +153,11 @@ class TranslatableTest extends AbstractTestCase
                 "{$metadata->getTableName()}_uniq_trans" => [
                     'columns' => [
                         'translatable_id',
-                        'locale'
-                    ]
-                ]
+                        'locale',
+                    ],
+                ],
             ],
-            $metadata->table['uniqueConstraints'] ?? []
+            $metadata->table['uniqueConstraints'] ?? [],
         );
     }
 
@@ -169,8 +169,8 @@ class TranslatableTest extends AbstractTestCase
         $em = $this->createEntityManager(eventListeners: [
             [
                 [Events::loadClassMetadata],
-                new TranslatableListener()
-            ]
+                new TranslatableListener(),
+            ],
         ]);
 
         // Expect exception
@@ -187,8 +187,8 @@ class TranslatableTest extends AbstractTestCase
         $em = $this->createEntityManager(eventListeners: [
             [
                 [Events::loadClassMetadata],
-                new TranslatableListener()
-            ]
+                new TranslatableListener(),
+            ],
         ]);
 
         // Expect exception

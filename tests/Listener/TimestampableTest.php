@@ -231,8 +231,8 @@ class TimestampableTest extends AbstractTestCase
         $em = $this->createEntityManager(eventListeners: [
             [
                 [Events::loadClassMetadata],
-                new TimestampableListener()
-            ]
+                new TimestampableListener(),
+            ],
         ]);
 
         $metadata = $em->getClassMetadata(TimestampableEntity::class);
@@ -243,17 +243,17 @@ class TimestampableTest extends AbstractTestCase
                 Events::prePersist => [
                     [
                         'class' => TimestampableListener::class,
-                        'method' => Events::prePersist
-                    ]
+                        'method' => Events::prePersist,
+                    ],
                 ],
                 Events::preUpdate => [
                     [
                         'class' => TimestampableListener::class,
-                        'method' => Events::preUpdate
-                    ]
-                ]
+                        'method' => Events::preUpdate,
+                    ],
+                ],
             ],
-            $metadata->entityListeners
+            $metadata->entityListeners,
         );
     }
 
@@ -262,8 +262,8 @@ class TimestampableTest extends AbstractTestCase
         $em = $this->createEntityManager(eventListeners: [
             [
                 [Events::loadClassMetadata],
-                new TimestampableListener()
-            ]
+                new TimestampableListener(),
+            ],
         ]);
 
         // Make sure no entity listeners were added to non-timestampable entities.

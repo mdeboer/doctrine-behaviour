@@ -29,11 +29,11 @@ abstract class AbstractTestCase extends TestCase
      */
     protected function createEntityManager(
         ?array $paths = null,
-        array $eventListeners = []
+        array $eventListeners = [],
     ): EntityManagerInterface {
         $config = ORMSetup::createAttributeMetadataConfiguration(
             paths: $paths ?? [__DIR__ . '/Fixture/Entity'],
-            isDevMode: true
+            isDevMode: true,
         );
 
         // Add filters.
@@ -45,25 +45,25 @@ abstract class AbstractTestCase extends TestCase
 
         foreach ($eventListeners as $eventListener) {
             $eventManager->addEventListener(
-                (array)$eventListener[0],
-                $eventListener[1]
+                (array) $eventListener[0],
+                $eventListener[1],
             );
         }
 
         // Create connection.
         $connection = DriverManager::getConnection(
             params: [
-                'url' => 'sqlite:///:memory:'
+                'url' => 'sqlite:///:memory:',
             ],
             config: $config,
-            eventManager: $eventManager
+            eventManager: $eventManager,
         );
 
         // Create entity manager.
         $em = new EntityManager(
             conn: $connection,
             config: $config,
-            eventManager: $eventManager
+            eventManager: $eventManager,
         );
 
         // Create schema.
@@ -78,7 +78,7 @@ abstract class AbstractTestCase extends TestCase
 
         $app->get('orm:schema-tool:create')->run(
             new StringInput(''),
-            new NullOutput()
+            new NullOutput(),
         );
     }
 }

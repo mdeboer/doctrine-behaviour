@@ -18,7 +18,7 @@ trait DateAssertions
      */
     public function assertDateEquals(
         \DateTimeInterface $expected,
-        ?\DateTimeInterface $actual
+        ?\DateTimeInterface $actual,
     ): void {
         $tz = new \DateTimeZone('UTC');
 
@@ -30,7 +30,7 @@ trait DateAssertions
 
         static::assertEquals(
             $expected->format(\DateTimeInterface::ATOM),
-            $actual?->format(\DateTimeInterface::ATOM)
+            $actual?->format(\DateTimeInterface::ATOM),
         );
     }
 
@@ -46,7 +46,7 @@ trait DateAssertions
      */
     public function assertDateTimezoneEquals(
         string|\DateTimeZone $expected,
-        \DateTimeZone|\DateTimeInterface|null $actual
+        \DateTimeZone|\DateTimeInterface|null $actual,
     ): void {
         if (is_string($expected)) {
             $expected = new \DateTimeZone($expected);

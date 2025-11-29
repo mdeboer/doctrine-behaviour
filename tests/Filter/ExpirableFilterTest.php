@@ -52,9 +52,9 @@ class ExpirableFilterTest extends AbstractTestCase
         static::assertSame(
             [
                 $validEntity->id,
-                $expiringEntity->id
+                $expiringEntity->id,
             ],
-            $entities
+            $entities,
         );
     }
 
@@ -81,7 +81,7 @@ class ExpirableFilterTest extends AbstractTestCase
             [
                 $entity->id,
             ],
-            $entities
+            $entities,
         );
     }
 }

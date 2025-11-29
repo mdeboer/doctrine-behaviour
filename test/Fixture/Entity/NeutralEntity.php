@@ -7,6 +7,4 @@ namespace mdeboer\DoctrineBehaviour\Test\Fixture\Entity;
 use Doctrine\ORM\Mapping\Entity;
 
 #[Entity]
-class NeutralEntity extends AbstractEntity
-{
-}
+class NeutralEntity extends AbstractEntity {}

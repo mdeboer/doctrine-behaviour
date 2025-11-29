@@ -17,7 +17,7 @@ class TimestampableListener
     private readonly ClockInterface $clock;
 
     public function __construct(
-        ?ClockInterface $clock = null
+        ?ClockInterface $clock = null,
     ) {
         $this->clock = $clock ?? Clock::get();
     }
@@ -70,13 +70,13 @@ class TimestampableListener
         $classMetadata->addEntityListener(
             Events::prePersist,
             static::class,
-            'prePersist'
+            'prePersist',
         );
 
         $classMetadata->addEntityListener(
             Events::preUpdate,
             static::class,
-            'preUpdate'
+            'preUpdate',
         );
     }
 }
