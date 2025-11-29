@@ -56,7 +56,7 @@ class SoftDeleteFilterTest extends AbstractTestCase
             [
                 $entity->id,
             ],
-            $entities
+            $entities,
         );
     }
 
@@ -83,7 +83,7 @@ class SoftDeleteFilterTest extends AbstractTestCase
             [
                 $entity->id,
             ],
-            $entities
+            $entities,
         );
     }
 }

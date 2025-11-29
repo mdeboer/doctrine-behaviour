@@ -15,7 +15,7 @@ class OtherEntityTranslation extends AbstractEntity implements TranslationInterf
     use TranslationTrait;
 
     public function __construct(
-        ?string $locale = null
+        ?string $locale = null,
     ) {
         if ($locale !== null) {
             $this->setLocale($locale);

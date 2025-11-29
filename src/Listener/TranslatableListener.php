@@ -68,7 +68,7 @@ class TranslatableListener
                 'indexBy' => 'locale',
                 'cascade' => ['persist'],
                 'orphanRemoval' => true,
-            ]
+            ],
         );
     }
 
@@ -105,10 +105,10 @@ class TranslatableListener
                 'joinColumns' => [
                     [
                         'onDelete' => 'CASCADE',
-                        'nullable' => false
-                    ]
-                ]
-            ]
+                        'nullable' => false,
+                    ],
+                ],
+            ],
         );
 
         // Map locale field.
@@ -116,8 +116,8 @@ class TranslatableListener
             [
                 'fieldName' => 'locale',
                 'type' => 'string',
-                'length' => 12
-            ]
+                'length' => 12,
+            ],
         );
 
         // FIXME: Unique constraint currently breaks due to a wrong order in the unit of work
@@ -128,7 +128,7 @@ class TranslatableListener
 
         // Add unique constraint.
         $uniqueConstraints["{$classMetadata->getTableName()}_uniq_trans"] = [
-            'columns' => [$classMetadata->getSingleAssociationJoinColumnName('translatable'), 'locale']
+            'columns' => [$classMetadata->getSingleAssociationJoinColumnName('translatable'), 'locale'],
         ];
 
         // Add it to the class metadata.

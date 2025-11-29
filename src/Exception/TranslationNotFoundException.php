@@ -7,6 +7,4 @@ namespace mdeboer\DoctrineBehaviour\Exception;
 /**
  * Translation not found exception.
  */
-class TranslationNotFoundException extends \RuntimeException
-{
-}
+class TranslationNotFoundException extends \RuntimeException {}

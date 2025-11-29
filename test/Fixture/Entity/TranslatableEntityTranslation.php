@@ -15,7 +15,7 @@ class TranslatableEntityTranslation extends AbstractEntity implements Translatio
 
     public function __construct(
         ?string $locale = null,
-        public ?string $name = null
+        public ?string $name = null,
     ) {
         if ($locale !== null) {
             $this->setLocale($locale);

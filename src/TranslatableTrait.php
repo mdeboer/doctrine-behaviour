@@ -192,8 +192,8 @@ trait TranslatableTrait
                             ->where(
                                 count($locale) > 1
                                     ? Criteria::expr()->in('locale', $locale)
-                                    : Criteria::expr()->eq('locale', $locale[0])
-                            )
+                                    : Criteria::expr()->eq('locale', $locale[0]),
+                            ),
                     );
 
                 foreach ($locale as $l) {

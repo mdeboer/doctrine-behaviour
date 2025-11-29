@@ -9,7 +9,7 @@ $finder = (new PhpCsFixer\Finder())
 
 return (new PhpCsFixer\Config())
     ->setRules([
-        '@PSR12' => true,
+        '@PER-CS2x0' => true,
         'phpdoc_align' => true,
         'no_unused_imports' => true,
         'method_chaining_indentation' => true,
@@ -18,8 +18,8 @@ return (new PhpCsFixer\Config())
         'global_namespace_import' => [
             'import_classes' => false,
             'import_constants' => false,
-            'import_functions' => false
-        ]
+            'import_functions' => false,
+        ],
     ])
     ->setRiskyAllowed(true)
     ->setFinder($finder);

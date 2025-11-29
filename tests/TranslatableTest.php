@@ -57,7 +57,7 @@ class TranslatableTest extends TestCase
         $germanTranslation = new TranslatableEntityTranslation('de');
 
         $entity = new TranslatableEntity(
-            new ArrayCollection([$englishTranslation, $germanTranslation])
+            new ArrayCollection([$englishTranslation, $germanTranslation]),
         );
 
         $translations = $entity->getTranslations();
@@ -84,8 +84,8 @@ class TranslatableTest extends TestCase
             [
                 $englishTranslation1,
                 $englishTranslation2,
-                $germanTranslation
-            ]
+                $germanTranslation,
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -117,9 +117,9 @@ class TranslatableTest extends TestCase
                 [
                     $englishTranslation1,
                     $englishTranslation2,
-                    $germanTranslation
-                ]
-            )
+                    $germanTranslation,
+                ],
+            ),
         );
 
         $translations = $entity->getTranslations();
@@ -148,8 +148,8 @@ class TranslatableTest extends TestCase
         new TranslatableEntity(
             [
                 new TranslatableEntityTranslation('en'),
-                new \stdClass()
-            ]
+                new \stdClass(),
+            ],
         );
     }
 
@@ -161,8 +161,8 @@ class TranslatableTest extends TestCase
         new TranslatableEntity(
             [
                 new TranslatableEntityTranslation('nl'),
-                new OtherEntityTranslation('en')
-            ]
+                new OtherEntityTranslation('en'),
+            ],
         );
     }
 
@@ -171,8 +171,8 @@ class TranslatableTest extends TestCase
         $entity = new TranslatableEntity(
             [
                 new TranslatableEntityTranslation('en'),
-                new TranslatableEntityTranslation('nl')
-            ]
+                new TranslatableEntityTranslation('nl'),
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -233,8 +233,8 @@ class TranslatableTest extends TestCase
         $entity = new TranslatableEntity(
             [
                 $translationToRemove,
-                new TranslatableEntityTranslation('nl')
-            ]
+                new TranslatableEntityTranslation('nl'),
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -260,8 +260,8 @@ class TranslatableTest extends TestCase
         $entity = new TranslatableEntity(
             [
                 new TranslatableEntityTranslation('en'),
-                new TranslatableEntityTranslation('nl')
-            ]
+                new TranslatableEntityTranslation('nl'),
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -301,8 +301,8 @@ class TranslatableTest extends TestCase
         $entity->setTranslations(
             [
                 new TranslatableEntityTranslation('en'),
-                new TranslatableEntityTranslation('nl')
-            ]
+                new TranslatableEntityTranslation('nl'),
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -320,8 +320,8 @@ class TranslatableTest extends TestCase
     {
         $entity = new TranslatableEntity(
             [
-                new TranslatableEntityTranslation('de')
-            ]
+                new TranslatableEntityTranslation('de'),
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -334,8 +334,8 @@ class TranslatableTest extends TestCase
         $entity->setTranslations(
             [
                 new TranslatableEntityTranslation('en'),
-                new TranslatableEntityTranslation('nl')
-            ]
+                new TranslatableEntityTranslation('nl'),
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -355,8 +355,8 @@ class TranslatableTest extends TestCase
 
         $entity = new TranslatableEntity(
             [
-                $existingTranslation
-            ]
+                $existingTranslation,
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -369,8 +369,8 @@ class TranslatableTest extends TestCase
         $entity->setTranslations(
             [
                 new TranslatableEntityTranslation('en'),
-                new TranslatableEntityTranslation('nl')
-            ]
+                new TranslatableEntityTranslation('nl'),
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -390,8 +390,8 @@ class TranslatableTest extends TestCase
 
         $entity = new TranslatableEntity(
             [
-                $existingTranslation
-            ]
+                $existingTranslation,
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -405,8 +405,8 @@ class TranslatableTest extends TestCase
 
         $entity->setTranslations(
             [
-                $existingTranslation
-            ]
+                $existingTranslation,
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -429,8 +429,8 @@ class TranslatableTest extends TestCase
         $entity->setTranslations(
             [
                 new TranslatableEntityTranslation('nl'),
-                new OtherEntityTranslation('en')
-            ]
+                new OtherEntityTranslation('en'),
+            ],
         );
     }
 
@@ -458,8 +458,8 @@ class TranslatableTest extends TestCase
     {
         $entity = new TranslatableEntity(
             [
-                new TranslatableEntityTranslation('de')
-            ]
+                new TranslatableEntityTranslation('de'),
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -521,8 +521,8 @@ class TranslatableTest extends TestCase
             [
                 new TranslatableEntityTranslation('en'),
                 new TranslatableEntityTranslation('nl'),
-                new TranslatableEntityTranslation('de')
-            ]
+                new TranslatableEntityTranslation('de'),
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -546,8 +546,8 @@ class TranslatableTest extends TestCase
             [
                 new TranslatableEntityTranslation('en'),
                 new TranslatableEntityTranslation('nl'),
-                new TranslatableEntityTranslation('de')
-            ]
+                new TranslatableEntityTranslation('de'),
+            ],
         );
 
         $translations = $entity->getTranslations();
@@ -571,8 +571,8 @@ class TranslatableTest extends TestCase
             [
                 new TranslatableEntityTranslation('en'),
                 new TranslatableEntityTranslation('nl'),
-                new TranslatableEntityTranslation('de')
-            ]
+                new TranslatableEntityTranslation('de'),
+            ],
         );
 
         $translations = $entity->getTranslations();

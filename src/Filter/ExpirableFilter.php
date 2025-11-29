@@ -39,8 +39,8 @@ class ExpirableFilter extends SQLFilter
             $platform->quoteIdentifier($column),
             $platform->quoteStringLiteral(
                 Type::getType('datetime_immutable')
-                    ->convertToDatabaseValue($clock->now(), $platform)
-            )
+                    ->convertToDatabaseValue($clock->now(), $platform),
+            ),
         );
     }
 }

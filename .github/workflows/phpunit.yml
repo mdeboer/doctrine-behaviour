@@ -13,9 +13,8 @@ jobs:
 
     strategy:
       matrix:
-        php-versions:
-          - '8.1'
-          - '8.2'
+        php_version: ['8.1', '8.2', '8.3', '8.4']
+        minimum_deps: [0, 1]
 
     steps:
       - uses: actions/checkout@v3
@@ -23,10 +22,12 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: ${{ matrix.php_version }}
           extensions: intl
-          coverage: xdebug
           tools: composer
+
+      - name: Prepare environment
+        run: echo "COMPOSER_PREFER_LOWEST=${{ matrix.minimum_deps }}" >> "$GITHUB_ENV"
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
@@ -41,7 +42,7 @@ jobs:
             ${{ runner.os }}-php-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+        run: composer update --no-progress
 
       - name: Run test suite
         run: vendor/bin/phpunit
