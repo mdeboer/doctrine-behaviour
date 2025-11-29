@@ -17,12 +17,6 @@
         </testsuite>
     </testsuites>
 
-    <coverage cacheDirectory=".phpunit.cache/code-coverage">
-        <report>
-            <clover outputFile="coverage.clover.xml"/>
-        </report>
-    </coverage>
-
     <source>
         <include>
             <directory>src/</directory>
